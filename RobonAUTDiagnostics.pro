@@ -1,9 +1,12 @@
 TEMPLATE = app
 
-QT += qml quick
-CONFIG += c++11
+QT += qml quick widgets serialport
+CONFIG += c++14
 
-SOURCES += main.cpp
+QMAKE_CXXFLAGS_CXX11    = -std=c++1y
+
+SOURCES += main.cpp \
+    Comm/communication.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,4 +15,7 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    Comm/communication.h
 
