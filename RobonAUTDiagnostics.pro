@@ -6,7 +6,10 @@ CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 SOURCES += main.cpp \
-    Comm/communication.cpp
+    Comm/robotmsghandler.cpp \
+    Comm/robotmessage.cpp \
+    Comm/roboterrormessage.cpp \
+    Comm/commserial.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,5 +20,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    Comm/communication.h
+    Comm/robotmsghandler.h \
+    Comm/robotmessage.h \
+    Comm/roboterrormessage.h \
+    Comm/commserial.h
 

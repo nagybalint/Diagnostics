@@ -1,10 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QDebug>
-#include "Comm/communication.h"
+#include "Comm/commserial.h"
 
-void dataReady(QByteArray data) {
-    qDebug() << "Data IN: " << data;
+void dataReady(QDataStream& data) {
+    qDebug() << "Data IN: ";
+    quint8 byteIn;
+    for(int i = data.device()->bytesAvailable(); i > 0; i--) {
+        data >> byteIn;
+        qDebug() << byteIn;
+    }
 }
 
 int main(int argc, char *argv[])
@@ -13,17 +18,19 @@ int main(int argc, char *argv[])
     Q_UNUSED(argc);
     Q_UNUSED(argv);
 
-    Communication serial;
+    CommSerial serial;
 
-    QObject::connect(&serial, &Communication::dataReady, dataReady);
+    QObject::connect(&serial, &CommSerial::dataAvailable, dataReady);
 
     serial.connect();
 
     serial.send("help");
-    serial.send(QByteArray(1, 13));
+
+    QTextStream s(stdin);
+    QString str;
 
     while(1) {
-        ;
+        serial.send("ahah ha  ");
     }
 
     return 0;
