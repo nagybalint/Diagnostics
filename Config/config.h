@@ -9,8 +9,6 @@ class Config : public QObject
 public:
     explicit Config(QObject *parent = 0);
 
-    void write(QString fileName);
-    void read(QString fileName);
 
 signals:
 

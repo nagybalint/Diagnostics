@@ -4,7 +4,8 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    Config/config.cpp
+    Config/config.cpp \
+    Config/Controllers/pid.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,5 +16,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    Config/config.h
+    Config/config.h \
+    Config/Controllers/pid.h
 
