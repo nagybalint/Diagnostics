@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>ConsoleTab.qml</file>
     </qresource>
 </RCC>
-
