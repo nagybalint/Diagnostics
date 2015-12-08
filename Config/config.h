@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include <QObject>
+#include "Controllers/pid.h"
 
 class Config : public QObject
 {
@@ -9,10 +10,12 @@ class Config : public QObject
 public:
     explicit Config(QObject *parent = 0);
 
-
 signals:
 
 public slots:
+
+private:
+    Pid Pid;
 };
 
 #endif // CONFIG_H
