@@ -8,6 +8,10 @@ Item {
     id: root
 
     signal textChanged(string msg)
+    signal upKeyPressed()
+    signal downKeyPressed()
+
+    property var historyText
 
     Component {
 
@@ -65,7 +69,6 @@ Item {
 
             TextInput {
                 id: inputText
-                objectName: textInput
                 activeFocusOnPress: true
                 font.pixelSize: 10
                 anchors.fill: parent
@@ -85,7 +88,12 @@ Item {
                 }
 
                 Keys.onUpPressed: {
-                    inputText.text = consoleList.section;
+                    root.upKeyPressed();
+                    inputText.text = historyText;
+                }
+                Keys.onDownPressed: {
+                    root.downKeyPressed();
+                    inputText.text = historyText;
                 }
             }
         }

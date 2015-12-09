@@ -7,15 +7,7 @@
 ConsoleTabEventClass::ConsoleTabEventClass(QQmlContext &context)
     : qmlContext(context)
 {
-
-}
-
-void ConsoleTabEventClass::setTextInput(QList<QObject*> object) {
-
-    // TODO history is not working
-    textInput = object.at(0)->findChild<QQuickItem*>("textInput");
-    if (textInput)
-        qDebug() << "Finding text Input secceded!!!";
+    historyCurrent = 0;
 }
 
 
@@ -23,12 +15,44 @@ void ConsoleTabEventClass::consoleTextArrived(QString text) {
 
     // Debug code
     qDebug() << text;
-    addToList(text);
+    addToListView(text);
+    historyList.append(text);
     listChanged();
+
+    // Set history position
+    historyCurrent = historyList.size();
 
 }
 
-void ConsoleTabEventClass::addToList(QString string) {
+void ConsoleTabEventClass::consoleKeyPressed(int key) {
+
+    QString string;
+
+    if(historyCurrent < 0 ) return;
+
+    switch (key) {
+
+    case 1:
+        string = historyList.at(historyCurrent - 1);
+        if (historyCurrent > 1) historyCurrent--;
+        break;
+
+    case 2:
+        if (historyCurrent == historyList.size()) {
+            string = "";
+        }
+        else string = historyList.at(historyCurrent);
+        if (historyCurrent < historyList.size()) historyCurrent++;
+        break;
+
+    default:
+        break;
+    }
+
+    qmlContext.setContextProperty(QStringLiteral("setHistoryText"), QVariant::fromValue(string));
+}
+
+void ConsoleTabEventClass::addToListView(QString string) {
 
     this->dataList.append(string);
 

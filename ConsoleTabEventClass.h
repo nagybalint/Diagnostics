@@ -12,8 +12,7 @@ class ConsoleTabEventClass : public QObject
 public:
     ConsoleTabEventClass(QQmlContext &context);
 
-    void addToList(QString string);
-    void setTextInput(QList<QObject*> object);
+    void addToListView(QString string);
 
 signals:
 
@@ -21,13 +20,15 @@ signals:
 
 public slots:
     void consoleTextArrived(QString text);
+    void consoleKeyPressed(int key);
     void listChanged();
 
 private:
     QQmlContext &qmlContext;
-    QQuickItem *textInput;
     QString text;
     QStringList dataList;
+    QStringList historyList;
+    int historyCurrent;
 };
 
 #endif // CONSOLETABEVENTCLASS_H

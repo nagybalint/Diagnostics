@@ -7,8 +7,6 @@ Application::Application(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    console.setTextInput(engine.rootObjects());
-
     auto rootObjects = engine.rootObjects();
     if (rootObjects.size() == 0)
     {
@@ -19,5 +17,6 @@ Application::Application(int argc, char *argv[])
     QObject *rootObject = rootObjects[0];
 
     QObject::connect(rootObject, SIGNAL(sendTextInput(QString)), &console, SLOT(consoleTextArrived(QString)));
+    QObject::connect(rootObject, SIGNAL(keyPressed(int)), &console, SLOT(consoleKeyPressed(int)));
 }
 

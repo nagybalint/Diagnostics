@@ -13,6 +13,7 @@ ApplicationWindow {
     minimumHeight: 400
 
     signal sendTextInput(string msg)
+    signal keyPressed(int msg)
 
     menuBar : MenuBar {
 
@@ -25,7 +26,6 @@ ApplicationWindow {
                 onTriggered: Qt.quit();
             }
         }
-
     }
 
     SplitView {
@@ -49,19 +49,32 @@ ApplicationWindow {
 
                     ConsoleTab {
                         id: mainConsoleTab
-                        objectName: textInput
                         anchors.fill: parent
+                        historyText: setHistoryText
 
                         onTextChanged: {
                             sendTextInput(msg);
                         }
 
+                        onUpKeyPressed: {
+                            keyPressed(1);
+                        }
+
+                        onDownKeyPressed: {
+                            keyPressed(2);
+                        }
                     }
                 }
 
                 Tab {
                     id: graphsTab
                     title: "Graphs"
+
+                    GraphTab {
+                        id: mainGraphTab
+
+                        anchors.fill: parent
+                    }
 
 
                 }

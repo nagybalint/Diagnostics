@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>ConsoleTab.qml</file>
+        <file>GraphTab.qml</file>
     </qresource>
 </RCC>
