@@ -10,7 +10,9 @@ SOURCES += main.cpp \
     Comm/robotmessage.cpp \
     Comm/commserial.cpp \
     Comm/robotterminalmessage.cpp \
-    Comm/roboterrormessage.cpp
+    Comm/roboterrormessage.cpp \
+    ConsoleTabEventClass.cpp \
+    Application.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,5 +27,7 @@ HEADERS += \
     Comm/robotmessage.h \
     Comm/commserial.h \
     Comm/robotterminalmessage.h \
-    Comm/roboterrormessage.h
+    Comm/roboterrormessage.h \
+    ConsoleTabEventClass.h \
+    Application.h
 
