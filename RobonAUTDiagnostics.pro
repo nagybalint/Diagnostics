@@ -5,7 +5,9 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     Config/config.cpp \
-    Config/Controllers/pid.cpp
+    Config/Controllers/pid.cpp \
+    RobotState/robotstate.cpp \
+    RobotState/imu.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,5 +19,7 @@ include(deployment.pri)
 
 HEADERS += \
     Config/config.h \
-    Config/Controllers/pid.h
+    Config/Controllers/pid.h \
+    RobotState/robotstate.h \
+    RobotState/imu.h
 
