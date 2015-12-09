@@ -16,11 +16,14 @@ void ConsoleTabEventClass::consoleTextArrived(QString text) {
     // Debug code
     qDebug() << text;
     addToListView(text);
-    historyList.append(text);
     listChanged();
+
+    // Add new text to historyList
+    historyList.append(text);
 
     // Set history position
     historyCurrent = historyList.size();
+
 
 }
 
