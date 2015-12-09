@@ -7,17 +7,17 @@ LineSensor::LineSensor(QObject *parent) : QObject(parent)
     lineOrientation = 0;
 }
 
-float LineSensor::getFrontLinePos()
+float LineSensor::getFrontLinePos() const
 {
     return frontLinePos;
 }
 
-float LineSensor::getBackLinePos()
+float LineSensor::getBackLinePos() const
 {
     return backLinePos;
 }
 
-float LineSensor::getLineOrientation()
+float LineSensor::getLineOrientation() const
 {
     return lineOrientation;
 }
@@ -34,6 +34,15 @@ void LineSensor::readFrom(QDataStream &stream)
     stream >> frontLinePos;
     stream >> backLinePos;
     stream >> lineOrientation;
+}
+
+LineSensor &LineSensor::operator=(const LineSensor &other)
+{
+    frontLinePos = other.frontLinePos;
+    backLinePos = other.backLinePos;
+    lineOrientation = other.lineOrientation;
+
+    return *this;
 }
 
 QDataStream& operator<<(QDataStream& stream, const LineSensor& LineSensor) {

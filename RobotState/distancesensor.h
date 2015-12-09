@@ -9,14 +9,15 @@ class DistanceSensor : public QObject
     Q_OBJECT
 public:
     explicit DistanceSensor(QObject *parent = 0);
-    DistanceSensor(const DistanceSensor &from); // Copy constructor
 
-    float getDistLeft(void);
-    float getDistRight(void);
-    float getDistFront(void);
+    float getDistLeft(void) const;
+    float getDistRight(void) const;
+    float getDistFront(void) const;
 
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
+
+    DistanceSensor& operator=(const DistanceSensor& other);
 
 signals:
 

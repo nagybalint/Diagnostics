@@ -22,17 +22,17 @@ void Imu::setOrientZ(float param)
     orientZ = param;
 }
 
-float Imu::getOrientX()
+float Imu::getOrientX() const
 {
     return orientX;
 }
 
-float Imu::getOrientY()
+float Imu::getOrientY() const
 {
     return orientY;
 }
 
-float Imu::getOrientZ()
+float Imu::getOrientZ() const
 {
     return orientZ;
 }
@@ -49,6 +49,15 @@ void Imu::readFrom(QDataStream &stream)
     stream >> orientX;
     stream >> orientY;
     stream >> orientZ;
+}
+
+Imu &Imu::operator=(const Imu &other)
+{
+    orientX = other.orientX;
+    orientY = other.orientY;
+    orientZ = other.orientZ;
+
+    return *this;
 }
 
 QDataStream &operator>>(QDataStream &stream, Imu &Imu)

@@ -18,6 +18,13 @@ void Config::readFrom(QDataStream &stream)
     stream >> Pid;
 }
 
+Config &Config::operator=(const Config &other)
+{
+    Pid = other.Pid;
+
+    return *this;
+}
+
 QDataStream& operator<<(QDataStream& stream, const Config& Config) {
     Config.writeTo(stream);
     return stream;

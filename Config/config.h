@@ -13,6 +13,8 @@ public:
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
 
+    Config& operator=(const Config& other);
+
 signals:
 
 public slots:

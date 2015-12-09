@@ -18,12 +18,14 @@ public:
     void setOrientY(float param);
     void setOrientZ(float param);
 
-    float getOrientX(void);
-    float getOrientY(void);
-    float getOrientZ(void);
+    float getOrientX(void) const;
+    float getOrientY(void) const;
+    float getOrientZ(void) const;
 
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
+
+    Imu& operator=(const Imu& other);
 
 signals:
 

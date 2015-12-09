@@ -7,24 +7,17 @@ DistanceSensor::DistanceSensor(QObject *parent) : QObject(parent)
     distFront = 0;
 }
 
-DistanceSensor::DistanceSensor(const DistanceSensor &from)
-{
-    distLeft = from.distLeft;
-    distRight = from.distRight;
-    distFront = from.distFront;
-}
-
-float DistanceSensor::getDistLeft()
+float DistanceSensor::getDistLeft() const
 {
     return distLeft;
 }
 
-float DistanceSensor::getDistRight()
+float DistanceSensor::getDistRight() const
 {
     return distRight;
 }
 
-float DistanceSensor::getDistFront()
+float DistanceSensor::getDistFront() const
 {
     return distFront;
 }
@@ -41,6 +34,15 @@ void DistanceSensor::readFrom(QDataStream &stream)
     stream >> distLeft;
     stream >> distRight;
     stream >> distFront;
+}
+
+DistanceSensor &DistanceSensor::operator=(const DistanceSensor &other)
+{
+    distLeft = other.getDistLeft();
+    distRight = other.getDistRight();
+    distFront = other.getDistFront();
+
+    return *this;
 }
 
 QDataStream& operator<<(QDataStream& stream, const DistanceSensor& DistanceSensor) {

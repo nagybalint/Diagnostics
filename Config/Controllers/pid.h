@@ -18,15 +18,17 @@ public:
     void setKd(float param);
 
     /* get Kp gain */
-    float getKp(void);
+    float getKp(void) const;
     /* get Ki gain */
-    float getKi(void);
+    float getKi(void) const;
     /* get Kd gain */
-    float getKd(void);
+    float getKd(void) const;
 
     /* serialize the object to a stream */
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
+
+    Pid& operator=(const Pid& other);
 
 signals:
 

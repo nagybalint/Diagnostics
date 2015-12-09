@@ -19,15 +19,15 @@ void Pid::setKd(float param) {
     Kd = param;
 }
 
-float Pid::getKp(void) {
+float Pid::getKp(void) const {
     return Kp;
 }
 
-float Pid::getKi(void) {
+float Pid::getKi(void) const {
     return Ki;
 }
 
-float Pid::getKd(void) {
+float Pid::getKd(void) const {
     return Kd;
 }
 
@@ -42,6 +42,15 @@ void Pid::readFrom(QDataStream &stream)
     stream >> Kp;
     stream >> Ki;
     stream >> Kd;
+}
+
+Pid &Pid::operator=(const Pid &other)
+{
+    Kp = other.Kp;
+    Ki = other.Ki;
+    Kd = other.Kd;
+
+    return *this;
 }
 
 QDataStream& operator<<(QDataStream& stream, const Pid& Pid) {

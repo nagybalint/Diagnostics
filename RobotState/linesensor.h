@@ -10,12 +10,14 @@ class LineSensor : public QObject
 public:
     explicit LineSensor(QObject *parent = 0);
 
-    float getFrontLinePos(void);
-    float getBackLinePos(void);
-    float getLineOrientation(void);
+    float getFrontLinePos(void) const;
+    float getBackLinePos(void) const;
+    float getLineOrientation(void) const;
 
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
+
+    LineSensor& operator=(const LineSensor& other);
 
 signals:
 
