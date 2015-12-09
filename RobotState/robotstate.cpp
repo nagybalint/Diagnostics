@@ -30,6 +30,19 @@ void RobotState::readFrom(QDataStream &stream)
     stream >> frontSensorAngle;
 }
 
+void RobotState::copyFrom(const RobotState &other)
+{
+    Config = other.Config;
+    IMU = other.IMU;
+    LineSensor = other.LineSensor;
+    DistanceSensor = other.DistanceSensor;
+    batVoltage3S = other.batVoltage3S;
+    batVoltage2S = other.batVoltage2S;
+    carSpeed = other.carSpeed;
+    steeringAngle = other.steeringAngle;
+    frontSensorAngle = other.frontSensorAngle;
+}
+
 QDataStream& operator<<(QDataStream& stream, const RobotState& RobotState) {
     RobotState.writeTo(stream);
     return stream;

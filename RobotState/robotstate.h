@@ -16,6 +16,7 @@ public:
 
     void writeTo(QDataStream& stream) const;
     void readFrom(QDataStream& stream);
+    void copyFrom(const RobotState &other);
 
 signals:
 
