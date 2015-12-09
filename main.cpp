@@ -6,10 +6,13 @@
 void dataReady(QDataStream& data) {
     qDebug() << "Data IN: ";
     quint8 byteIn;
-    for(int i = data.device()->bytesAvailable(); i > 0; i--) {
+    QByteArray a;
+    for(int i = data.device()->bytesAvailable(); i > 0; i--){
         data >> byteIn;
-        qDebug() << byteIn;
+        a.append(byteIn);
     }
+    QString s(a);
+    qDebug() << s;
 }
 
 int main(int argc, char *argv[])
@@ -24,13 +27,17 @@ int main(int argc, char *argv[])
 
     serial.connect();
 
-    serial.send("help");
-
     QTextStream s(stdin);
     QString str;
 
+    serial.send((quint8)'h');
+    serial.send((quint8)'e');
+    serial.send((quint8)'l');
+    serial.send((quint8)'p');
+    serial.send((quint8)13);
+
     while(1) {
-        serial.send("ahah ha  ");
+        ;
     }
 
     return 0;
