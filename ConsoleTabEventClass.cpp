@@ -2,21 +2,23 @@
 #include <QDebug>
 #include <QQmlContext>
 #include <QQmlApplicationEngine>
-
+#include "Comm/commserial.h"
+#include "Comm/robotterminalmessage.h"
 
 ConsoleTabEventClass::ConsoleTabEventClass(QQmlContext &context)
     : qmlContext(context)
 {
     historyCurrent = 0;
+    QString placeHolder("");
+    this->dataList.append(placeHolder);
 }
 
 
 void ConsoleTabEventClass::consoleTextArrived(QString text) {
 
     // Debug code
-    qDebug() << text;
-    addToListView(text);
-    listChanged();
+    //qDebug() << text;
+    emit this->commandAvailable(text);
 
     // Add new text to historyList
     historyList.append(text);
@@ -55,9 +57,15 @@ void ConsoleTabEventClass::consoleKeyPressed(int key) {
     qmlContext.setContextProperty(QStringLiteral("setHistoryText"), QVariant::fromValue(string));
 }
 
-void ConsoleTabEventClass::addToListView(QString string) {
+void ConsoleTabEventClass::addToListView(QString& string) {
 
-    this->dataList.append(string);
+    if(string.at(string.length() - 1) != '\r') {
+        this->dataList.last().append(string);
+    } else {
+        QString placeHolder("");
+        this->dataList.append(placeHolder);
+    }
+    listChanged();
 
 }
 

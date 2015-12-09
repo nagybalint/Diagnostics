@@ -12,16 +12,16 @@ class ConsoleTabEventClass : public QObject
 public:
     ConsoleTabEventClass(QQmlContext &context);
 
-    void addToListView(QString string);
-
 signals:
 
-
+    void commandAvailable(QString& cmd);
 
 public slots:
     void consoleTextArrived(QString text);
     void consoleKeyPressed(int key);
     void listChanged();
+
+    void addToListView(QString& string);
 
 private:
     QQmlContext &qmlContext;

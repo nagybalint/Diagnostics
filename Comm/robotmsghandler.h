@@ -5,12 +5,12 @@
 
 #include "commserial.h"
 #include "robotmessage.h"
+#include "roboterrormessage.h"
 
 class RobotMsgHandler : public QObject
 {
     Q_OBJECT
 public:
-    RobotMsgHandler() = default;
     RobotMsgHandler(CommSerial& serial);
     ~RobotMsgHandler() = default;
 
@@ -28,15 +28,22 @@ private:
         EndByte
     };
     ParseState currentParseState;
-
+    CommSerial* serial;
     std::unique_ptr<RobotMessage> messageIn;
 
 signals:
     void messageError(RobotMsgHandler::Error errorCode);
 
+    void terminalMessageReceived(QString& msg);
+    void errorMessageReceived(RobotErrorMessage::Code errorCode);
+
+private:
+    void emitSignal(RobotMessage* msg);
+
 public slots:
 
     void dataAvailable(QDataStream &inStream);
+    void sendTerminalMsg(QString& command);
 
 };
 

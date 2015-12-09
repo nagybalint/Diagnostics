@@ -16,7 +16,8 @@ RobotMsgHandler::RobotMsgHandler(CommSerial& serial) :
 }
 
 void RobotMsgHandler::listenOn(CommSerial& serial) {
-    QObject::connect(&serial, SIGNAL(dataAvailable(QDataStream&)), this, SLOT(dataAvailable(QDataStream&)));
+    this->serial = &serial;
+    QObject::connect(this->serial, SIGNAL(dataAvailable(QDataStream&)), this, SLOT(dataAvailable(QDataStream&)));
 }
 
 void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
@@ -51,8 +52,10 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
             break;
 
         case RobotMsgHandler::ParseState::Parsing:
-            if(!messageIn->parseMessage(inStream))
+            if(!messageIn->parseMessage(inStream)) {
+                emitSignal(messageIn.get());
                 currentParseState = RobotMsgHandler::ParseState::EndByte;
+            }
 
         case RobotMsgHandler::ParseState::EndByte:
             inStream >> byteIn;
@@ -67,3 +70,20 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
     }
 }
 
+void RobotMsgHandler::emitSignal(RobotMessage* msg) {
+
+    switch (msg->type) {
+    case RobotMessage::Type::Terminal:
+        emit this->terminalMessageReceived(((RobotTerminalMessage*) msg)->getMessage());
+        break;
+    default:
+        break;
+    }
+
+}
+
+void RobotMsgHandler::sendTerminalMsg(QString& command) {
+
+    RobotTerminalMessage msg(command);
+    this->serial->send(msg);
+}

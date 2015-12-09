@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include "ConsoleTabEventClass.h"
+#include "Comm/commserial.h"
+#include "Comm/robotmsghandler.h"
 
 class Application : public QApplication
 {
@@ -11,9 +13,11 @@ public:
     Application(int argc, char *argv[]);
     ~Application() = default;
 
-private:
     QQmlApplicationEngine engine;
     ConsoleTabEventClass console;
+    CommSerial serial;
+    RobotMsgHandler handler;
+
 };
 
 #endif // APPLICATION_H
