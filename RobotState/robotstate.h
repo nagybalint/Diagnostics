@@ -67,16 +67,16 @@ public slots:
 
 private:
     /* Configurable values (eg. controller gains) */
-    Config Config;
+    Config config;
 
     /* car orientations around each axis */
     Imu IMU;
 
     /* data from linesensor */
-    LineSensor LineSensor;
+    LineSensor lineSensor;
 
     /* distance sensors data */
-    DistanceSensor DistanceSensor;
+    DistanceSensor distanceSensor;
 
     /* battery voltages */
     float batVoltage3S;     // [V]

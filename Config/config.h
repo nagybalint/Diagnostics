@@ -20,7 +20,7 @@ signals:
 public slots:
 
 private:
-    Pid Pid;
+    Pid pid;
 };
 
 /* cover writeTo function */

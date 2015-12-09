@@ -10,17 +10,17 @@ Config::Config(QObject *parent) : QObject(parent)
 
 void Config::writeTo(QDataStream &stream) const
 {
-    stream << Pid;
+    stream << pid;
 }
 
 void Config::readFrom(QDataStream &stream)
 {
-    stream >> Pid;
+    stream >> pid;
 }
 
 Config &Config::operator=(const Config &other)
 {
-    Pid = other.Pid;
+    pid = other.pid;
 
     return *this;
 }
