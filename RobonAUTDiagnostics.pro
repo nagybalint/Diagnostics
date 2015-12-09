@@ -8,7 +8,8 @@ QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 SOURCES += main.cpp \
     Comm/robotmsghandler.cpp \
     Comm/robotmessage.cpp \
-    Comm/commserial.cpp
+    Comm/commserial.cpp \
+    Comm/robotterminalmessage.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,5 +22,6 @@ include(deployment.pri)
 HEADERS += \
     Comm/robotmsghandler.h \
     Comm/robotmessage.h \
-    Comm/commserial.h
+    Comm/commserial.h \
+    Comm/robotterminalmessage.h
 
