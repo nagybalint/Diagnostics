@@ -11,16 +11,24 @@ public:
     RobotErrorMessage();
     ~RobotErrorMessage() = default;
 
-    quint8 getCode();
+    quint16 getCode();
     quint32 getMsgSize();
 
     int parseMessage(QDataStream &inStream) override;
 
+    enum class Code {
+        LowBattery3S = 0x0001,
+        LowBattery2S = 0x0002
+    };
+
+    RobotErrorMessage::Code getErrorCode(quint16 codeByte);
+
 private:
-    quint8 code;
-    const quint32 msgSize = 10;
+    RobotErrorMessage::Code errorCode;
+    const quint32 msgSize = 2; // In bytes
 
 signals:
+    void robotError(RobotErrorMessage::Code errorCode);
 
 public slots:
 };

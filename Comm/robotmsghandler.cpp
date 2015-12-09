@@ -1,6 +1,7 @@
 #include "robotmsghandler.h"
 #include "robotmessage.h"
 #include "robotterminalmessage.h"
+#include "roboterrormessage.h"
 #include <QDataStream>
 #include <QTimer>
 #include <QIODevice>
@@ -37,6 +38,9 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
             switch (RobotMessage::getType(byteIn)) {
             case RobotMessage::Type::Terminal:
                 messageIn = std::make_unique<RobotTerminalMessage>();
+                break;
+            case (RobotMessage::Type::Error):
+                messageIn = std::make_unique<RobotErrorMessage>();
                 break;
             default:
                 // TODO emit error message
