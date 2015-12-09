@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     RobotState/robotstate.cpp \
     RobotState/imu.cpp \
     RobotState/linesensor.cpp \
-    RobotState/distancesensor.cpp
+    RobotState/distancesensor.cpp \
+    robotstatehistory.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,5 +26,6 @@ HEADERS += \
     RobotState/robotstate.h \
     RobotState/imu.h \
     RobotState/linesensor.h \
-    RobotState/distancesensor.h
+    RobotState/distancesensor.h \
+    robotstatehistory.h
 
