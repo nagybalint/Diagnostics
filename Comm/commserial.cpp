@@ -4,7 +4,7 @@
 
 CommSerial::CommSerial() : receiveStream(nullptr) {
 
-    serialPort.setBaudRate(230400);
+    serialPort.setBaudRate(QSerialPort::Baud115200);
     serialPort.setParity(QSerialPort::NoParity);
     serialPort.setStopBits(QSerialPort::OneStop);
     serialPort.setPortName("COM5");

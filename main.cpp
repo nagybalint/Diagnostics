@@ -2,18 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 #include "Comm/commserial.h"
-
-void dataReady(QDataStream& data) {
-    qDebug() << "Data IN: ";
-    quint8 byteIn;
-    QByteArray a;
-    for(int i = data.device()->bytesAvailable(); i > 0; i--){
-        data >> byteIn;
-        a.append(byteIn);
-    }
-    QString s(a);
-    qDebug() << s;
-}
+#include "Comm/robotmsghandler.h"
+#include "Comm/robotterminalmessage.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,21 +13,17 @@ int main(int argc, char *argv[])
 
     CommSerial serial;
 
-    QObject::connect(&serial, &CommSerial::dataAvailable, dataReady);
-
+    RobotMsgHandler handler(serial);
+    handler.listenOn(serial);
     serial.connect();
 
-    QTextStream s(stdin);
-    QString str;
+    QString getHelpStr("help");
+    RobotTerminalMessage getHelp(getHelpStr);
 
-    serial.send((quint8)'h');
-    serial.send((quint8)'e');
-    serial.send((quint8)'l');
-    serial.send((quint8)'p');
-    serial.send((quint8)13);
+    serial.send(getHelp);
 
     while(1) {
-        ;
+        serial.send(getHelp);
     }
 
     return 0;

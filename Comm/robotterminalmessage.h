@@ -9,8 +9,11 @@ class RobotTerminalMessage : public RobotMessage
     Q_OBJECT
 public:
     RobotTerminalMessage();
+    RobotTerminalMessage(QString& msg);
 
     int parseMessage(QDataStream &inStream) override;
+    void setMessage(QString& msg);
+    QString& getMessage();
     friend QDataStream &operator<<(QDataStream &, const RobotTerminalMessage &);
 
 private:

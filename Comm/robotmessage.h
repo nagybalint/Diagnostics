@@ -15,10 +15,10 @@ public:
     ~RobotMessage() = default;
 
     enum class Type {
-        Terminal = 0x00,
-        Error = 0x01,
-        Status = 0x02,
-        Config = 0x03
+        Terminal = 0x01,
+        Error = 0x02,
+        Status = 0x03,
+        Config = 0x04
     };
 
     Type type;

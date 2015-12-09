@@ -22,49 +22,44 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
 
     quint8 byteIn;
     QIODevice* socket = inStream.device();
+    while(socket->bytesAvailable()) {
+        switch (currentParseState) {
 
-    switch (currentParseState) {
-
-    case RobotMsgHandler::ParseState::StartByte:
-        inStream >> byteIn;
-        if(byteIn == DEBUG_MSG_START_CODE)
-            this->currentParseState = ParseState::MsgType;
-        break;
-
-    case RobotMsgHandler::ParseState::MsgType:
-        inStream >> byteIn;
-        currentParseState = RobotMsgHandler::ParseState::Parsing;
-        switch (RobotMessage::getType(byteIn)) {
-        case RobotMessage::Type::Terminal:
-            messageIn = std::make_unique<RobotTerminalMessage>();
+        case RobotMsgHandler::ParseState::StartByte:
+            inStream >> byteIn;
+            if(byteIn == DEBUG_MSG_START_CODE)
+                this->currentParseState = ParseState::MsgType;
             break;
-        default:
-            // TODO emit error message
-            // Unknown message type, prepare for new message
+
+        case RobotMsgHandler::ParseState::MsgType:
+            inStream >> byteIn;
+            currentParseState = RobotMsgHandler::ParseState::Parsing;
+            switch (RobotMessage::getType(byteIn)) {
+            case RobotMessage::Type::Terminal:
+                messageIn = std::make_unique<RobotTerminalMessage>();
+                break;
+            default:
+                // TODO emit error message
+                // Unknown message type, prepare for new message
+                currentParseState = RobotMsgHandler::ParseState::StartByte;
+                break;
+            }
+            break;
+
+        case RobotMsgHandler::ParseState::Parsing:
+            if(!messageIn->parseMessage(inStream))
+                currentParseState = RobotMsgHandler::ParseState::EndByte;
+
+        case RobotMsgHandler::ParseState::EndByte:
+            inStream >> byteIn;
+            if(byteIn != DEBUG_MSG_END_CODE) {
+                ; // TODO emit error
+            }
             currentParseState = RobotMsgHandler::ParseState::StartByte;
+
+        default:
             break;
         }
-        break;
-
-    case RobotMsgHandler::ParseState::Parsing:
-        if(!messageIn->parseMessage(inStream))
-            currentParseState = RobotMsgHandler::ParseState::EndByte;
-
-    case RobotMsgHandler::ParseState::EndByte:
-        inStream >> byteIn;
-        if(byteIn != DEBUG_MSG_END_CODE)
-            ; // TODO emit error
-        currentParseState = RobotMsgHandler::ParseState::StartByte;
-
-    default:
-        break;
     }
-
-
-    // Ha közben jött több adat
-    if (socket->bytesAvailable() > 0) {
-        QTimer::singleShot(0, this, SLOT(dataAvailable(QDataStream&)));
-    }
-
 }
 
