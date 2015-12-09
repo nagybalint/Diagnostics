@@ -7,7 +7,9 @@ SOURCES += main.cpp \
     Config/config.cpp \
     Config/Controllers/pid.cpp \
     RobotState/robotstate.cpp \
-    RobotState/imu.cpp
+    RobotState/imu.cpp \
+    RobotState/linesensor.cpp \
+    RobotState/distancesensor.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,5 +23,7 @@ HEADERS += \
     Config/config.h \
     Config/Controllers/pid.h \
     RobotState/robotstate.h \
-    RobotState/imu.h
+    RobotState/imu.h \
+    RobotState/linesensor.h \
+    RobotState/distancesensor.h
 

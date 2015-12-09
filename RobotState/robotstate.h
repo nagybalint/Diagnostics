@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include "RobotState/imu.h"
+#include "RobotState/linesensor.h"
+#include "RobotState/distancesensor.h"
 
 class RobotState : public QObject
 {
@@ -15,9 +17,27 @@ signals:
 public slots:
 
 private:
+    /* car orientations around each axis */
     Imu IMU;
-    float batVoltage3S;
-    float batVoltage2S;
+
+    /* data from linesensor */
+    LineSensor LineSensor;
+
+    /* distance sensors data */
+    DistanceSensor DistanceSensor;
+
+    /* battery voltages */
+    float batVoltage3S;     // [V]
+    float batVoltage2S;     // [V]
+
+    /* speed of the car */
+    float carSpeed;         // [m/s]
+
+    /* angle of the steering servo */
+    float steeringAngle;    // [rad]
+
+    /* angle of the front sensor servo */
+    float frontSensorAngle; // [rad]
 
 };
 
