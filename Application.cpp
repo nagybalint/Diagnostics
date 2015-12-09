@@ -2,7 +2,7 @@
 #include <QDebug>
 
 Application::Application(int argc, char *argv[])
-    : QApplication(argc, argv), engine(), console(*engine.rootContext())
+    : QApplication(argc, argv), engine(), console(*engine.rootContext()), testGraph(*engine.rootContext())
 {
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -16,7 +16,10 @@ Application::Application(int argc, char *argv[])
 
     QObject *rootObject = rootObjects[0];
 
+    testGraph.connectQmlSignals(rootObject, QString("positionGraph"));
+
     QObject::connect(rootObject, SIGNAL(sendTextInput(QString)), &console, SLOT(consoleTextArrived(QString)));
     QObject::connect(rootObject, SIGNAL(keyPressed(int)), &console, SLOT(consoleKeyPressed(int)));
+
 }
 

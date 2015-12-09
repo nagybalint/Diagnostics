@@ -12,3 +12,10 @@ unix:!android {
 
 export(INSTALLS)
 
+DISTFILES += \
+    $$PWD/imports/QuickPlot/qmldir \
+    $$PWD/imports/QuickPlot/Axes.qml \
+    $$PWD/imports/QuickPlot/AxisLabels.qml \
+    $$PWD/imports/QuickPlot/PlotArea.qml \
+    $$PWD/imports/QuickPlot/Tick.qml
+

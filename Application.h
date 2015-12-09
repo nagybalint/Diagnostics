@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include "ConsoleTabEventClass.h"
+#include "GraphTabEventClass.h"
 
 class Application : public QApplication
 {
@@ -14,6 +15,7 @@ public:
 private:
     QQmlApplicationEngine engine;
     ConsoleTabEventClass console;
+    GraphTabEventClass testGraph;
 };
 
 #endif // APPLICATION_H

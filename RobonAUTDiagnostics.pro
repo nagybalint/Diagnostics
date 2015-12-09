@@ -5,7 +5,8 @@ CONFIG += c++14
 
 SOURCES += main.cpp \
     ConsoleTabEventClass.cpp \
-    Application.cpp
+    Application.cpp \
+    GraphTabEventClass.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,5 +18,7 @@ include(deployment.pri)
 
 HEADERS += \
     ConsoleTabEventClass.h \
-    Application.h
+    Application.h \
+    GraphTabEventClass.h
 
+DISTFILES +=
