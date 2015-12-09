@@ -14,6 +14,20 @@ ApplicationWindow {
 
     signal sendTextInput(string msg)
 
+    menuBar : MenuBar {
+
+        Menu {
+            title: "File"
+
+            MenuItem {text: "Settings"}
+            MenuItem {
+                text: "Exit"
+                onTriggered: Qt.quit();
+            }
+        }
+
+    }
+
     SplitView {
         anchors.fill: parent
         width: parent.width
