@@ -9,6 +9,7 @@ class DistanceSensor : public QObject
     Q_OBJECT
 public:
     explicit DistanceSensor(QObject *parent = 0);
+    DistanceSensor(const DistanceSensor &from); // Copy constructor
 
     float getDistLeft(void);
     float getDistRight(void);

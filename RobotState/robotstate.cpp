@@ -32,10 +32,12 @@ void RobotState::readFrom(QDataStream &stream)
 
 void RobotState::copyFrom(const RobotState &other)
 {
+/*
     Config = other.Config;
     IMU = other.IMU;
     LineSensor = other.LineSensor;
     DistanceSensor = other.DistanceSensor;
+*/
     batVoltage3S = other.batVoltage3S;
     batVoltage2S = other.batVoltage2S;
     carSpeed = other.carSpeed;

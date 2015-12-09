@@ -7,6 +7,13 @@ DistanceSensor::DistanceSensor(QObject *parent) : QObject(parent)
     distFront = 0;
 }
 
+DistanceSensor::DistanceSensor(const DistanceSensor &from)
+{
+    distLeft = from.distLeft;
+    distRight = from.distRight;
+    distFront = from.distFront;
+}
+
 float DistanceSensor::getDistLeft()
 {
     return distLeft;

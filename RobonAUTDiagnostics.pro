@@ -1,7 +1,9 @@
 TEMPLATE = app
 
 QT += qml quick
-CONFIG += c++11
+
+CONFIG += c++14
+QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 SOURCES += main.cpp \
     Config/config.cpp \

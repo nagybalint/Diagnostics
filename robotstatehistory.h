@@ -16,11 +16,16 @@ public:
     /* List of previous robot states */
     QList<QObject*> stateList;
     /* Pointer to last valid state. Updated by add(). */
-    RobotState *currentState;
+    RobotState* currentState;
     /* Real container (ownership) */
     std::vector<std::unique_ptr<RobotState>> container;
 
-    /* Append a copy of the parameter to the end of the history */
+    /* Lists for QML graph drawing */
+    QList<float> graphSteeringAngle;
+    /* number of previous states to show */
+    const int shownStateNumber = 20;
+
+    /* Append a copy of the parameter to the end of the history and update currendState */
     void add(const RobotState& state);
 
 signals:
