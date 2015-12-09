@@ -56,6 +56,7 @@ public:
     void copyFrom(const RobotState &other);
 
 signals:
+    /* not used */
     void batVoltage3SChanged();
     void batVoltage2SChanged();
     void carSpeedChanged();

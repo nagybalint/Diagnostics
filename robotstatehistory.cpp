@@ -15,6 +15,9 @@ void RobotStateHistory::add(const RobotState &state)
     container.push_back(std::move(newState));
 
     graphSteeringAngle.clear();
+    graphFrontLinePos.clear();
+    graphCarSpeed.clear();
+
     int graphStateNumber = stateList.size() < shownStateNumber ? stateList.size() : shownStateNumber;
 
     auto it = container.end()-graphStateNumber;
@@ -22,6 +25,8 @@ void RobotStateHistory::add(const RobotState &state)
     {
         RobotState* currentState = it->get();
         graphSteeringAngle.append(currentState->getSteeringAngle());
+        graphFrontLinePos.append(currentState->getFrontSensorAngle());
+        graphCarSpeed.append(currentState->getCarSpeed());
     }
 
     emit historyChanged();

@@ -22,6 +22,8 @@ public:
 
     /* Lists for QML graph drawing */
     QList<float> graphSteeringAngle;
+    QList<float> graphFrontLinePos;
+    QList<float> graphCarSpeed;
     /* number of previous states to show */
     const int shownStateNumber = 20;
 
