@@ -3,42 +3,51 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 
+
 Item {
+    id: root
+
+    signal textChanged(string msg)
 
     Component {
 
         id: monitorDelegate
-        Text { text: model.monitorText }
+        Text { text: modelData }
 
     }
 
     ColumnLayout {
         id: base
         anchors.fill: parent
+        Layout.minimumWidth: 200
 
-        ScrollView {
-            id: scrollView1
+        Rectangle {
 
-            anchors.left: parent.left
+            id: scrollRect
             anchors.top: parent.top
             anchors.right: parent.right
+            anchors.left: parent.left
             anchors.bottom: inputRect.top
-            anchors.margins: 5
+            color: "lightgray"
 
 
-            ListView {
+            ScrollView {
+                id: scrollView1
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
 
-                id: consoleList
-                //model: monitorModel
-                //delegate: monitorDelegate
+                anchors.fill: parent
+                anchors.margins: 5
 
-                Text {
-                    id: name
-                    text: qsTr("text")
+                ListView {
+
+                    id: consoleList
+                    model: monitorModel
+                    delegate: monitorDelegate
+
+                    onCountChanged: {
+                        consoleList.currentIndex = consoleList.count - 1;
+                    }
                 }
-
-
-
             }
 
         }
@@ -46,20 +55,38 @@ Item {
         Rectangle {
             id: inputRect
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            Layout.fillWidth: true
-            height: 20
-            color: "#ffffff"
-            radius: 2
+            height: 25
+            color: "white"
+            radius: 1
+            Layout.minimumWidth: base.width
             border.color: "grey"
             border.width: 1
 
+
             TextInput {
+                id: inputText
+                objectName: textInput
+                activeFocusOnPress: true
                 font.pixelSize: 10
                 anchors.fill: parent
                 anchors.margins: 5
                 verticalAlignment: TextInput.AlignVCenter
-                maximumLength: 65
-                cursorVisible: true
+                maximumLength: 80
+                cursorVisible: false
+                inputMask: ""
+
+                onActiveFocusChanged: {
+                    cursorVisible: true;
+                }
+
+                onAccepted: {
+                    root.textChanged(inputText.text);
+                    inputText.text = "";
+                }
+
+                Keys.onUpPressed: {
+                    inputText.text = consoleList.section;
+                }
             }
         }
     }

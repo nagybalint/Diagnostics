@@ -8,9 +8,11 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    property alias tab1: tab1
     title: qsTr("git•egylet Diagnostics")
+    minimumWidth: 400
+    minimumHeight: 400
 
+    signal sendTextInput(string msg)
 
     SplitView {
         anchors.fill: parent
@@ -25,27 +27,29 @@ ApplicationWindow {
 
             Layout.minimumWidth: 200
             TabView {
-                id:tabview
-                width: parent.width
-                anchors.rightMargin: 7
-                anchors.leftMargin: 13
-                anchors.topMargin: 10
-                anchors.bottomMargin: 8
                 anchors.fill: parent
-                anchors.margins: 10
-                Layout.minimumWidth: 200
+                anchors.margins: 5
                 Tab{
-                    id: tab1
+                    id: consoleTab
                     title: "Console"
 
                     ConsoleTab {
-                        id: mainConsoleTabe
+                        id: mainConsoleTab
+                        objectName: textInput
                         anchors.fill: parent
+
+                        onTextChanged: {
+                            sendTextInput(msg);
+                        }
+
                     }
                 }
 
                 Tab {
+                    id: graphsTab
                     title: "Graphs"
+
+
                 }
             }
         }
