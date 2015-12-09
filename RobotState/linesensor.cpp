@@ -22,3 +22,26 @@ float LineSensor::getLineOrientation()
     return lineOrientation;
 }
 
+void LineSensor::writeTo(QDataStream &stream) const
+{
+    stream << frontLinePos;
+    stream << backLinePos;
+    stream << lineOrientation;
+}
+
+void LineSensor::readFrom(QDataStream &stream)
+{
+    stream >> frontLinePos;
+    stream >> backLinePos;
+    stream >> lineOrientation;
+}
+
+QDataStream& operator<<(QDataStream& stream, const LineSensor& LineSensor) {
+    LineSensor.writeTo(stream);
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, LineSensor& LineSensor) {
+    LineSensor.readFrom(stream);
+    return stream;
+}

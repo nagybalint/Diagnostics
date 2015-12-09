@@ -10,6 +10,9 @@ class Config : public QObject
 public:
     explicit Config(QObject *parent = 0);
 
+    void writeTo(QDataStream& stream) const;
+    void readFrom(QDataStream& stream);
+
 signals:
 
 public slots:
@@ -17,5 +20,10 @@ public slots:
 private:
     Pid Pid;
 };
+
+/* cover writeTo function */
+QDataStream& operator<<(QDataStream& stream, const Config& Config);
+/* covers readFrom function */
+QDataStream& operator>>(QDataStream& stream, Config& Config);
 
 #endif // CONFIG_H

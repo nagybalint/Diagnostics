@@ -2,6 +2,7 @@
 #define LINESENSOR_H
 
 #include <QObject>
+#include <QDataStream>
 
 class LineSensor : public QObject
 {
@@ -13,6 +14,9 @@ public:
     float getBackLinePos(void);
     float getLineOrientation(void);
 
+    void writeTo(QDataStream& stream) const;
+    void readFrom(QDataStream& stream);
+
 signals:
 
 public slots:
@@ -22,5 +26,10 @@ private:
     float backLinePos;      // [m]
     float lineOrientation;  // [rad]
 };
+
+/* covers writeTo function */
+QDataStream& operator<<(QDataStream& stream, const LineSensor& LineSensor);
+/* covers readFrom function */
+QDataStream& operator>>(QDataStream& stream, LineSensor& LineSensor);
 
 #endif // LINESENSOR_H

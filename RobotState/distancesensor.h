@@ -2,6 +2,7 @@
 #define DISTANCESENSOR_H
 
 #include <QObject>
+#include <QDataStream>
 
 class DistanceSensor : public QObject
 {
@@ -13,6 +14,9 @@ public:
     float getDistRight(void);
     float getDistFront(void);
 
+    void writeTo(QDataStream& stream) const;
+    void readFrom(QDataStream& stream);
+
 signals:
 
 public slots:
@@ -22,5 +26,10 @@ private:
     float distRight;    // [m]
     float distFront;    // [m]
 };
+
+/* covers writeTo function */
+QDataStream& operator<<(QDataStream& stream, const DistanceSensor& DistanceSensor);
+/* covers readFrom function */
+QDataStream& operator>>(QDataStream& stream, DistanceSensor& DistanceSensor);
 
 #endif // DISTANCESENSOR_H

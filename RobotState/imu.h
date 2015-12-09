@@ -2,6 +2,7 @@
 #define IMU_H
 
 #include <QObject>
+#include <QDataStream>
 
 /*
  * Inertial Measurement Unit
@@ -21,6 +22,8 @@ public:
     float getOrientY(void);
     float getOrientZ(void);
 
+    void writeTo(QDataStream& stream) const;
+    void readFrom(QDataStream& stream);
 
 signals:
 
@@ -31,5 +34,10 @@ private:
     float orientY;  // orientation around Y axis
     float orientZ;  // orientation around Z axis
 };
+
+/* covers writeTo function */
+QDataStream& operator<<(QDataStream& stream, const Imu& Imu);
+/* covers readFrom function */
+QDataStream& operator>>(QDataStream& stream, Imu& Imu);
 
 #endif // IMU_H

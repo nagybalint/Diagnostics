@@ -37,7 +37,19 @@ void Pid::writeTo(QDataStream& stream) const {
     stream << Kd;
 }
 
+void Pid::readFrom(QDataStream &stream)
+{
+    stream >> Kp;
+    stream >> Ki;
+    stream >> Kd;
+}
+
 QDataStream& operator<<(QDataStream& stream, const Pid& Pid) {
     Pid.writeTo(stream);
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Pid& Pid) {
+    Pid.readFrom(stream);
     return stream;
 }

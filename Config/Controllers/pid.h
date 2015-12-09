@@ -26,6 +26,7 @@ public:
 
     /* serialize the object to a stream */
     void writeTo(QDataStream& stream) const;
+    void readFrom(QDataStream& stream);
 
 signals:
 
@@ -37,7 +38,9 @@ private:
     float Kd;
 };
 
-/* cover the writeTo function */
+/* cover writeTo function */
 QDataStream& operator<<(QDataStream& stream, const Pid& Pid);
+/* covers readFrom function */
+QDataStream& operator>>(QDataStream& stream, Pid& Pid);
 
 #endif // PID_H

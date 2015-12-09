@@ -22,3 +22,26 @@ float DistanceSensor::getDistFront()
     return distFront;
 }
 
+void DistanceSensor::writeTo(QDataStream &stream) const
+{
+    stream << distLeft;
+    stream << distRight;
+    stream << distFront;
+}
+
+void DistanceSensor::readFrom(QDataStream &stream)
+{
+    stream >> distLeft;
+    stream >> distRight;
+    stream >> distFront;
+}
+
+QDataStream& operator<<(QDataStream& stream, const DistanceSensor& DistanceSensor) {
+    DistanceSensor.writeTo(stream);
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, DistanceSensor& DistanceSensor) {
+    DistanceSensor.readFrom(stream);
+    return stream;
+}

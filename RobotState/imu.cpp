@@ -37,3 +37,28 @@ float Imu::getOrientZ()
     return orientZ;
 }
 
+void Imu::writeTo(QDataStream& stream) const
+{
+    stream << orientX;
+    stream << orientY;
+    stream << orientZ;
+}
+
+void Imu::readFrom(QDataStream &stream)
+{
+    stream >> orientX;
+    stream >> orientY;
+    stream >> orientZ;
+}
+
+QDataStream &operator>>(QDataStream &stream, Imu &Imu)
+{
+    Imu.readFrom(stream);
+    return stream;
+}
+
+QDataStream &operator<<(QDataStream &stream, const Imu &Imu)
+{
+    Imu.writeTo(stream);
+    return stream;
+}
