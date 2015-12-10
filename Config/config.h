@@ -4,15 +4,22 @@
 #include <QObject>
 #include "Controllers/pid.h"
 
+/**
+ * @brief Az autó konfigurálható paramétereit tartalmazza
+ */
 class Config : public QObject
 {
     Q_OBJECT
 public:
+    /** @brief default konstruktor */
     explicit Config(QObject *parent = 0);
 
+    /** @brief tagváltozók streambe írása */
     void writeTo(QDataStream& stream) const;
+    /** @brief tagváltozók streamből olvasása */
     void readFrom(QDataStream& stream);
 
+    /** @brief egyenlőség operátor felüldefiniálása */
     Config& operator=(const Config& other);
 
 signals:
@@ -20,12 +27,17 @@ signals:
 public slots:
 
 private:
+    /**
+     * @brief PID szabályozó paraméterei
+     *
+     * @see Pid
+     */
     Pid pid;
 };
 
-/* cover writeTo function */
+/** << operátor felüldefiniálása, az Config::writeTo beburkolása */
 QDataStream& operator<<(QDataStream& stream, const Config& Config);
-/* covers readFrom function */
+/** >> operátor felüldefiniálása, a  Config::readFrom beburkolása */
 QDataStream& operator>>(QDataStream& stream, Config& Config);
 
 #endif // CONFIG_H
