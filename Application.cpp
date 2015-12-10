@@ -40,7 +40,6 @@ Application::Application(int argc, char *argv[])
     QObject::connect(&selfTest, SIGNAL(robotTestMessage(QString)), &mainWindow, SLOT(selfTestReceivedMessage(QString)));
 
 
-
     serial.connect();
     updateRequest.start(100);
 

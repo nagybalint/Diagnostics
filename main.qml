@@ -182,9 +182,9 @@ ApplicationWindow {
                                 context.beginPath();
                                 context.lineWidth = 2;
                                 context.moveTo( width/2  +
-                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, 0 );
+                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*300, 0 );
                                 context.lineTo( width/2  -
-                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, height);
+                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*300, height);
                                 context.strokeStyle = "red";
                                 context.stroke();
                             }
