@@ -34,8 +34,8 @@ Canvas {
         context.lineTo(graphCanvas.width - ownMargin,xAxisHpos);
         context.stroke();
         context.fillStyle = "black";
-        //context.font = "20px";
-        //context.fillText(xAxisUnit, graphCanvas.width - ownMargin - 15,xAxisHpos - 5);
+        context.font = "10px Adelle";
+        context.fillText(xAxisUnit, graphCanvas.width - ownMargin - 20,xAxisHpos - 5);
     }
 
     function drawYAxis(context) {
@@ -44,7 +44,7 @@ Canvas {
         context.moveTo(ownMargin, ownMargin);
         context.lineTo(ownMargin, graphCanvas.height - ownMargin);
         context.stroke();
-        //context.fillText(yAxisUnit, ownMargin + 5, ownMargin + 10);
+        context.fillText(yAxisUnit, ownMargin + 5, ownMargin + 10);
     }
 
     function drawGraph(context, data, style, verticalScale) {

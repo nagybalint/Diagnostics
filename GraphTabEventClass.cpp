@@ -8,6 +8,8 @@ GraphTabEventClass::GraphTabEventClass(QQmlContext &context, RobotStateHistory &
     qmlContext.setContextProperty(QStringLiteral("graphSpeedData"), QVariant::fromValue(this->history.graphCarSpeed));
     qmlContext.setContextProperty(QStringLiteral("graphPositionData"), QVariant::fromValue(this->history.graphFrontLinePos));
     qmlContext.setContextProperty(QStringLiteral("graphSteeringAngleData"), QVariant::fromValue(this->history.graphSteeringAngle));
+    qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue(10));
+    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue(-0.05));
 }
 
 void GraphTabEventClass::graphChanged() {
@@ -15,6 +17,9 @@ void GraphTabEventClass::graphChanged() {
     qmlContext.setContextProperty(QStringLiteral("graphSpeedData"), QVariant::fromValue(history.graphCarSpeed));
     qmlContext.setContextProperty(QStringLiteral("graphPositionData"), QVariant::fromValue(history.graphFrontLinePos));
     qmlContext.setContextProperty(QStringLiteral("graphSteeringAngleData"), QVariant::fromValue(history.graphSteeringAngle));
+    qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue(history.graphFrontLinePos.last()));
+    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue(0.05));
+
 
     emit graphContextUpdated();
 }
