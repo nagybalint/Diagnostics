@@ -1,8 +1,6 @@
 @mainpage
 @tableofcontents
 
-@section Architektura Architektúra áttekintés
-
 @section Allapot A robot állapotleírása
 A robot egy időpillanthoz tartozó állapotát egy RobotState osztály fogja össze. Ez a robotra jellemző adatokat tartalmazza (vonalszenzor adatai, szabályozó paraméterek, akku feszültség, autó sebesség, lásd: a linkelt osztályt).
 
@@ -30,3 +28,5 @@ Ezzel megoldható, hogy a beérkező üzenetek típusa által meghatározott mó
 A bejövő üzenetek feldolgozása a következő állapotdiagramon látszik.
 ![](umldiagrams/protocol.jpg)
 @section UI A user interface
+Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az adatok összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok
+újrarajzolásáért, valamint gombok kezeléséért. 
