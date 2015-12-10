@@ -34,6 +34,8 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
         inStream >> byteIn;
         if(byteIn == DEBUG_MSG_START_CODE)
             this->currentParseState = ParseState::MsgType;
+        else
+            emit this->messageError(RobotMsgHandler::Error::MissingStartByte);
         break;
 
     case RobotMsgHandler::ParseState::MsgType:
@@ -50,8 +52,7 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
             messageIn = std::make_unique<RobotStatusMessage>();
             break;
         default:
-            // TODO emit error message
-            // Unknown message type, prepare for new message
+            emit this->messageError(RobotMsgHandler::Error::UnknownType);
             currentParseState = RobotMsgHandler::ParseState::StartByte;
             break;
         }
@@ -67,7 +68,7 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
     case RobotMsgHandler::ParseState::EndByte:
         inStream >> byteIn;
         if(byteIn != DEBUG_MSG_END_CODE) {
-            ; // TODO emit error
+            emit this->messageError(RobotMsgHandler::Error::MissingEndByte);
         }
         currentParseState = RobotMsgHandler::ParseState::StartByte;
 

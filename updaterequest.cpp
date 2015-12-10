@@ -19,6 +19,5 @@ void UpdateRequest::stop() {
 }
 
 void UpdateRequest::tick() {
-    qDebug() << "tick";
     handler->sendStatusRequest();
 }
