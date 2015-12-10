@@ -28,8 +28,7 @@ kezdetben meglehetősen nehézkes volt megfelelően összeileszten a két körny
 így ezen nehézségek kis keresgélés után feloldódtak. 
 
 Képet ide!!!
-
+![UI](docs/ui.jpg "Felhasználói felület")
 
 <small>Szerzők, verziók: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
 
-<small>A szerzők megjelölése egyrészt azért fontos, hogy lehessen látni, kinek az alkotása egy snippet, másrészt az esetleges hibákkal kapcsolatban is őt érdemes keresni.</small>
