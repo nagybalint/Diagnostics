@@ -7,35 +7,64 @@
 #include <vector>
 #include "RobotState/robotstate.h"
 
+/**
+ * @brief RobotState history - Robottól bejövő státuszok eltárolása
+ *
+ * RobotState típusú elemek egy vector-ban
+ */
 class RobotStateHistory : public QObject
 {
     Q_OBJECT
 public:
+    /** @brief Default konstruktor */
     RobotStateHistory();
+    /** @brief Default destruktor */
     ~RobotStateHistory() = default;
 
-    /* List of previous robot states */
+    /** @brief Előző állapotokat tároló lista */
     QList<QObject*> stateList;
-    /* Pointer to last valid state. Updated by add(). */
+    /** @brief Pointer az aktuális (utolsó) státuszra. Az add függvény frissíti. */
     RobotState* currentState;
-    /* Real container (ownership) */
+    /** @brief A tényleges tároló (ownership) */
     std::vector<std::unique_ptr<RobotState>> container;
 
-    /* Lists for QML graph drawing */
+    /**
+     * @brief Lista a kormányszög grafikon rajzolásához.
+     *
+     * Az add függvény mindig a history utolsó shownStateNumber darab értékét írja bele.
+     * qreal típusú, mert a tárolt változók float-ok, de a QML azt nem tudja értelmezni.
+     */
     QList<qreal> graphSteeringAngle;
+
+    /**
+     * @brief Lista az első vonalszenzor pozíció grafikon rajzolásához.
+     *
+     * Az add függvény mindig a history utolsó shownStateNumber darab értékét írja bele.
+     * qreal típusú, mert a tárolt változók float-ok, de a QML azt nem tudja értelmezni.
+     */
     QList<qreal> graphFrontLinePos;
+
+    /**
+     * @brief Lista a sebesség grafikon rajzolásához.
+     *
+     * Az add függvény mindig a history utolsó shownStateNumber darab értékét írja bele.
+     * qreal típusú, mert a tárolt változók float-ok, de a QML azt nem tudja értelmezni.
+     */
     QList<qreal> graphCarSpeed;
-    /* number of previous states to show */
+
+    /** @brief A grafikon ennyi elemet ábrázol */
     const int shownStateNumber = 100;
 
-
-
 signals:
-    /* emit after add() */
+    /** @brief Az add függvény hívása után emittáljuk */
     void historyChanged();
 
 public slots:
-    /* Append a copy of the parameter to the end of the history and update currendState */
+    /**
+     * @brief A state állapotról másolatot készít, majd hozzáfűzi a historyhoz.
+     * A currentState változót is frissíti.
+     * @param state
+     */
     void add(RobotState& state);
 };
 

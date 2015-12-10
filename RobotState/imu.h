@@ -18,6 +18,7 @@ class Imu : public QObject
 {
     Q_OBJECT
 public:
+    /** @brief Default konstruktor */
     explicit Imu(QObject *parent = 0);
 
     /** @brief Imu::orientX setter */

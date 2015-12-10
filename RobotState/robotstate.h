@@ -9,10 +9,17 @@
 #include "RobotState/distancesensor.h"
 #include "Config/config.h"
 
+/**
+ * @brief A robot egy időpillanathoz tartozó állapotát reprezentálja
+ *
+ * Ilyen osztálypéldányok vannak eltárolva a RobotStateHistory::container vector-ban,
+ * amikből majd a grafikonok rajzolódnak.
+ */
 class RobotState : public QObject
 {
     Q_OBJECT
 public:
+    /** @brief Default konstruktor */
     explicit RobotState(QObject *parent = 0);
 /*
     Q_PROPERTY(Config config READ getConfig WRITE setConfig MEMBER Config NOTIFY configChanged)
@@ -32,27 +39,40 @@ public:
     void setDistanceSensor(const DistanceSensor& param) { DistanceSensor = param; }
 */
     Q_PROPERTY(float batvoltage3S READ getBatVoltage3S WRITE setBatVoltage3S MEMBER batVoltage3S NOTIFY batVoltage3SChanged)
+    /// @brief get batVoltage3S
     float getBatVoltage3S() const { return batVoltage3S; }
+    /// @brief set batVoltage3S
     void setBatVoltage3S(const float& param) { batVoltage3S = param; }
 
     Q_PROPERTY(float batvoltage2S READ getBatVoltage2S WRITE setBatVoltage2S MEMBER batVoltage3S NOTIFY batVoltage2SChanged)
+    /// @brief get batVoltage2S
     float getBatVoltage2S() const { return batVoltage2S; }
+    /// @brief set batVoltage2S
     void setBatVoltage2S(const float& param) { batVoltage2S = param; }
 
     Q_PROPERTY(float carspeed READ getCarSpeed WRITE setCarSpeed MEMBER carSpeed NOTIFY carSpeedChanged)
+    /// @brief get carSpeed
     float getCarSpeed() const { return carSpeed; }
+    /// @brief set carSpeed
     void setCarSpeed(const float& param) { carSpeed = param; }
 
     Q_PROPERTY(float steeringangle READ getSteeringAngle WRITE setSteeringAngle MEMBER steeringAngle NOTIFY steeringAngleChanged)
+    /// @brief get steeringAngle
     float getSteeringAngle() const { return steeringAngle; }
+    /// @brief set steeringAngle
     void setSteeringAngle(const float& param) { steeringAngle = param; }
 
     Q_PROPERTY(float frontsensorangle READ getFrontSensorAngle WRITE setFrontSensorAngle MEMBER frontSensorAngle NOTIFY frontSensorAngleChanged)
+    /// @brief get frontSensorAngle
     float getFrontSensorAngle() const { return frontSensorAngle; }
+    /// @brief set frontSensorAngle
     void setFrontSensorAngle(const float& param) { frontSensorAngle = param; }
 
+    /** @brief tagváltozók streambe írása */
     void writeTo(QDataStream& stream) const;
+    /** @brief tagváltozók streamből olvasása */
     void readFrom(QDataStream& stream);
+    /** osztály másolása (mert egy QObject-hez nem lehet másolókonstruktort létrehozni) */
     void copyFrom(const RobotState &other);
 
 signals:
@@ -66,36 +86,38 @@ signals:
 public slots:
 
 public:
-    /* Configurable values (eg. controller gains) */
+
+    /** @see config */
     Config config;
 
-    /* car orientations around each axis */
+    /** @see Imu */
     Imu IMU;
 
-    /* data from linesensor */
+    /** @see LineSensor */
     LineSensor lineSensor;
 
-    /* distance sensors data */
+    /** @see DistanceSensor */
     DistanceSensor distanceSensor;
 
-    /* battery voltages */
-    float batVoltage3S;     // [V]
-    float batVoltage2S;     // [V]
+    /** 3 cellás akku feszültsége [V] */
+    float batVoltage3S;
+    /** 2 cellás akku feszültsége [V] */
+    float batVoltage2S;
 
-    /* speed of the car */
-    float carSpeed;         // [m/s]
+    /** autó sebessége [m/s] */
+    float carSpeed;
 
-    /* angle of the steering servo */
-    float steeringAngle;    // [rad]
+    /** kormányszervó szöge [rad] */
+    float steeringAngle;
 
-    /* angle of the front sensor servo */
-    float frontSensorAngle; // [rad]
+    /** elülső távolságszenzor szervójának szöge [rad] */
+    float frontSensorAngle;
 
 };
 
-/* covers writeTo function */
+/** << operátor felüldefiniálása, az RobotState::writeTo beburkolása */
 QDataStream& operator<<(QDataStream& stream, const RobotState& RobotState);
-/* covers readFrom function */
+/** >> operátor felüldefiniálása, a  RobotState::readFrom beburkolása */
 QDataStream& operator>>(QDataStream& stream, RobotState& RobotState);
 
 #endif // ROBOTSTATE_H
