@@ -23,12 +23,12 @@ a minták megfelelő helyét.
 
 ## Felhasználói felület
 
-Egyik legérdekesebb részfeladatmak a felhsználói felület megfelelő kialakítását gondoltuk, tapasztalatlan QML és Cpp fejlesztőként - korábbi andoidos xml tapasztalatokal - 
+Egyik legérdekesebb részfeladatnak a felhsználói felület megfelelő kialakítását gondoltuk, tapasztalatlan QML és Cpp fejlesztőként - korábbi andoidos xml tapasztalatokal - 
 kezdetben meglehetősen nehézkes volt megfelelően összeileszten a két környezetet, hibákat keresni. Szerencsére a Qt online elérhető dokumentációja igényes
 így ezen nehézségek kis keresgélés után feloldódtak. 
 
 
 ![UI](docs/ui.JPG "Felhasználói felület")
 
-<small>Szerzők, verziók: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
+<small>Szerzők: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
 
