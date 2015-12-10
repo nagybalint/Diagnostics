@@ -7,6 +7,12 @@
 
 @section Kommunikacio Kommunikáció
 @subsection Kapcsolat Kapcsolat a robottal
+A robottal a kapcsolat soros porton keresztül létezik. Ennek fenntartásáért a CommSerial osztály felel, melynek QSerialPort tagváltozóján keresztül kezelhető maga a soros port.
+
+Az üzenetek küldése és fogadása is streameken keresztül történik. A küldő függvénnyel bármilyen olyan objektum elküldhető, mely magát QDataStream-be képes írni.
+
+Az üzenetek fogadásához bekötésre került a QSerialPort readyRead() signalja, melyet az osztály dataReceived() slotja dolgoz fel. Ez nem tesz mást, mint a bejövő streamet továbbítja a dataAvailable() signaljának segítségével további feldolgozásra. Fontos, hogy az előbbi signal kiadásakor még nem biztos, hogy a teljes üzenet megérkezett.
+
 @subsection Uzenetfeldolgozas Az üzenettípusok
 Az üzenetek feldolgozása a Strategy tervezési minta alaján történik. Az üzenetfeldolgozást végző osztályok UML diagramja az alábbi ábrán látató.
 ![](umldiagrams/RobotMessage.jpg)
@@ -14,11 +20,27 @@ Minden üzenet típus a közös absztrakt RobotMessage ősosztályból származi
 
 Az osztály rendelkezik egy virtuális parseMessage() függvénnyel, melyet minden leszármazott osztály megvalósít. Ennek a feladat, hogy a bemeneteként kapott streamből az üzenetet beolvassa.
 
-Ezen kívül található az ősosztályban még egy std::uniqueptr<RobotMessage> típusú pointer is. Ehhez a mutatóhoz az üzenet feldolgozása során, az üzenet típusát már feldolgozva fog létrejönni egy leszármazott típusú objektu, amire a messageIn pointer fog mutatni, majd a messageIn-re a parseMessage() függvényt meghívva a leszármazott osztály azonos függvénye fog lefutni.
+Ezen kívül található az ősosztályban még egy std::uniqueptr<RobotMessage> típusú pointer is. Ehhez a mutatóhoz az üzenet feldolgozása során, az üzenet típusát már feldolgozva fog létrejönni egy leszármazott típusú objektmu, amire a messageIn pointer fog mutatni, majd a messageIn-re a parseMessage() függvényt meghívva a leszármazott osztály azonos függvénye fog lefutni.
 
 Ezzel megoldható, hogy a beérkező üzenetek típusa által meghatározott módon, különböző algoritmusok szerint olvassák be magukat, így megvalósítva a Strategy tervezési mintát.  
 
 @subsection Feldolgozas A bejövő üzenetek feldolgozása
 A bejövő üzenetek feldolgozása a következő állapotdiagramon látszik.
 ![](umldiagrams/protocol.jpg)
+Az üzenetet egy fejléc byte előzi meg, ezt a típust jelző azonosító követi. Ezután következik az értékes adat - ennek a feldolgozására képesek a RobotMessage osztály leszármazottai. Ezután pedig hibaellenőrzési célból egy lezáró byte kerül átvitelre.
+
+A robot hibaüzeneteinek, azaz a RobotErrorMessage objektumoknak a beolvasását és feldolgozását szemlélteti a következő szekvenciadiagram.
+![](umldiagrams/SequenceDiagramErrorParse.jpg)
+A többi üzenettípus beolvasása is azonos módon történik, csak a megérkezett üzenetek felhasználásában van különbség.
+
+A soros porton érkezett bájtokat a CommSerial osztály dataAvailable() signalja jelzi. Ezt a RobotMsgHandler megfelelő slotja fogadja, ami elkezdi az üzenet bájtok feldolgozását. A feldolgozó slot egy állapotgép, ami a fentebb ábrázolt üzenetküldési protokollon lépked végig. A slot törzse mindig csak egyszer fut le, ha maradt még bejövő üzenet akkor egy oneShot timer segítségével a slot újra meghívésra kerül.
+
+A fejléc és az üzenettípus megfelelő beolvasását követően az üzenettípusnak megfelelő objektum kerül előállításra, amire a messageIn unique pointer mutat. Ennek az obejktumnak a messageIn pointeren kersztül való parseMessage hívása a leszármazott osztály megfelelő függvényét hívja, mely elvégzi az üzenet beolvasását.
+
+Az értékes adat feldolgozása mindaddig tart, amíg a parseMessage() függvény 0-val tér vissza, ekkor a teljes üzenet megérkezett. Ezután  a megérkezett üzenetnek megfelelő signal meghívódik, majd hibaellenőrzési céllal beolvasásra kerül a lezáró bájt.
+
+@section Proxy Üzenet küldés, fogadás
+
+A bejövő és kimenő üzenetek könnyű kezeléséhez a RobotMsgHandler osztály használható, mely egy Proxy tervezési mintát valósít meg, kezelő interfészt szolgáltatva a robot üzeneteihez. A robot számára üzenetek küldése az osztály megfelelő slotjainak hívásával, a megfelelő üzenetek fogadása pedig a signaljaihoz való csatlakozással lehetséges.
+
 @section UI A user interface
