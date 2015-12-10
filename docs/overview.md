@@ -1,8 +1,6 @@
 @mainpage
 @tableofcontents
 
-@section Architektura Architektúra áttekintés
-
 @section Allapot A robot állapotleírása
 
 @section Kommunikacio Kommunikáció
@@ -22,3 +20,5 @@ Ezzel megoldható, hogy a beérkező üzenetek típusa által meghatározott mó
 A bejövő üzenetek feldolgozása a következő állapotdiagramon látszik.
 ![](umldiagrams/protocol.jpg)
 @section UI A user interface
+Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az adatok összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok
+újrarajzolásáért, valamint gombok kezeléséért. 
