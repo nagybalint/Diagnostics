@@ -28,7 +28,7 @@ kezdetben meglehetősen nehézkes volt megfelelően összeileszten a két körny
 így ezen nehézségek kis keresgélés után feloldódtak. 
 
 Képet ide!!!
-![UI](docs/ui.jpg "Felhasználói felület")
+![UI](docs/ui.JPG "Felhasználói felület")
 
 <small>Szerzők, verziók: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
 
