@@ -48,6 +48,7 @@ public slots:
     void sendTerminalMsg(QString& command);
     void setRobotAttribute(RobotMessage::Type attr, float value);
     void sendStatusRequest();
+    void sendConfig(Config& config);
 
 };
 
