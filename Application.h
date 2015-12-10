@@ -9,6 +9,7 @@
 #include "GraphTabEventClass.h"
 #include <QTimer>
 #include "robotstatehistory.h"
+#include "updaterequest.h"
 
 class Application : public QApplication
 {
@@ -22,6 +23,7 @@ public:
     GraphTabEventClass testGraph;
     CommSerial serial;
     RobotMsgHandler handler;
+    UpdateRequest updateRequest;
 };
 
 #endif // APPLICATION_H

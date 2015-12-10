@@ -1,13 +1,15 @@
 #include "robotstatehistory.h"
 #include <memory>
 
-RobotStateHistory::RobotStateHistory(QObject *parent) : QObject(parent), currentState(nullptr)
+RobotStateHistory::RobotStateHistory() : QObject(nullptr), currentState(nullptr)
 {
 
 }
 
-void RobotStateHistory::add(const RobotState &state)
+void RobotStateHistory::add(RobotState& state)
 {  
+
+    qDebug() << "EHOL";
     std::unique_ptr<RobotState> newState = std::make_unique<RobotState>();
     newState->copyFrom(state);
     stateList.append(newState.get());
@@ -29,5 +31,5 @@ void RobotStateHistory::add(const RobotState &state)
         graphCarSpeed.append(currentState->getCarSpeed());
     }
 
-    emit historyChanged();
+    emit this->historyChanged();
 }

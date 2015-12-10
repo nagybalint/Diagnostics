@@ -11,7 +11,8 @@ class RobotStateHistory : public QObject
 {
     Q_OBJECT
 public:
-    explicit RobotStateHistory(QObject *parent = 0);
+    RobotStateHistory();
+    ~RobotStateHistory() = default;
 
     /* List of previous robot states */
     QList<QObject*> stateList;
@@ -27,14 +28,15 @@ public:
     /* number of previous states to show */
     const int shownStateNumber = 100;
 
-    /* Append a copy of the parameter to the end of the history and update currendState */
-    void add(const RobotState& state);
+
 
 signals:
     /* emit after add() */
     void historyChanged();
 
 public slots:
+    /* Append a copy of the parameter to the end of the history and update currendState */
+    void add(RobotState& state);
 };
 
 #endif // ROBOTSTATEHISTORY_H

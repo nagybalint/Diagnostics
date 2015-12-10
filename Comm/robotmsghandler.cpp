@@ -26,11 +26,12 @@ void RobotMsgHandler::listenOn(CommSerial& serial) {
 
 void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
 
+    static int i = 0;
     quint8 byteIn;
     QIODevice* socket = inStream.device();
     while(socket->bytesAvailable()) {
+        qDebug() << "Parse: " << i++  << "Bytes: " << socket->bytesAvailable();
         switch (currentParseState) {
-
         case RobotMsgHandler::ParseState::StartByte:
             inStream >> byteIn;
             if(byteIn == DEBUG_MSG_START_CODE)
