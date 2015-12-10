@@ -4,6 +4,14 @@
 @section Architektura Architektúra áttekintés
 
 @section Allapot A robot állapotleírása
+A robot egy időpillanthoz tartozó állapotát egy RobotState osztály fogja össze. Ez a robotra jellemző adatokat tartalmazza (vonalszenzor adatai, szabályozó paraméterek, akku feszültség, autó sebesség, lásd: a linkelt osztályt).
+
+A robot állapot lekérdezését egy timer ütemezi, 100 milliszekundumonként kér új státuszjelentést a robottól. Minden a robottól kapott státusz üzenet bekerül egy RobotState példányba, ami aztán mentésre kerül egy history-ban. 
+A RobotStateHistory osztály megvalósít egy tárolót (std::vector), aminek az elemei RobotState példányokra mutató unique pointerek. Ezen felül tárolja az utolsó N db elemet külön QList listákban is, mivel a QML csak ezeket tudja feldolgozni.
+
+A robot aktuális állapotára mindig mutat a RobotStateHistory::currentState pointer. 
+
+Mivel a program egyéb komponenseinek szüksége van az új állapotra, ezért új állapot eltárolása után egy szignál kerül kibocsátásra.
 
 @section Kommunikacio Kommunikáció
 @subsection Kapcsolat Kapcsolat a robottal
