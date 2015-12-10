@@ -27,7 +27,7 @@ Egyik legérdekesebb részfeladatmak a felhsználói felület megfelelő kialak�
 kezdetben meglehetősen nehézkes volt megfelelően összeileszten a két környezetet, hibákat keresni. Szerencsére a Qt online elérhető dokumentációja igényes
 így ezen nehézségek kis keresgélés után feloldódtak. 
 
-Képet ide!!!
+
 ![UI](docs/ui.JPG "Felhasználói felület")
 
 <small>Szerzők, verziók: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
