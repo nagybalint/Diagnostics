@@ -49,7 +49,6 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
                 break;
             case(RobotMessage::Type::StatusUpdate):
                 messageIn = std::make_unique<RobotStatusMessage>();
-                qDebug() << "STATUS TYPE ID";
                 break;
             default:
                 // TODO emit error message
