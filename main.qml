@@ -14,10 +14,13 @@ ApplicationWindow {
 
     signal sendTextInput(string msg)
     signal keyPressed(int msg)
+    signal startCommand()
+    signal stopCommand()
 
-    property var frontSensorPos: -10
-    property var orientationAngle: -Math.PI/7
-    property var batContrV: 11.4
+    property var frontSensorPos: graphFrontSensorPos
+    property var orientationAngle: graphOrientationAngle
+    property var batContrV: graphBatContrV
+    property var batMotorV: graphBatMotorV
 
 
     menuBar : MenuBar {
@@ -82,17 +85,18 @@ ApplicationWindow {
 
                         Text {
                             id: statusInfo
-                            anchors.top: stopBtn.bottom
-                            font.pixelSize: 20
+                            anchors.top: parent.top
+                            font.pixelSize: 18
                             text: qsTr("Status info:")
                         }
+
                         Text {
                             id: batteryText
                             anchors.top: statusInfo.bottom
-                            text: qsTr("\nBattery: " + batContrV + "V");
+                            text: qsTr("\nBattery:  3S: " + batContrV + "V   2S: " + batMotorV + "V");
+                            color: batterryTextColor
                         }
                     }
-
 
 
                     Rectangle {
@@ -100,35 +104,47 @@ ApplicationWindow {
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
                         anchors.left: parent.left
-                        Layout.preferredHeight: parent.height / 3
+                        Layout.preferredHeight: parent.width
                         color: "transparent"
+
 
                         Canvas {
                             anchors.fill: parent
+                            property int circleMargin: 5;
+
+                            Text {
+                                id: canvasText
+                                anchors.bottom: parent.bottom
+                                text: qsTr("Car\nOrientation:")
+                            }
 
                             onPaint: {
                                 var context = getContext("2d");
 
                                 context.beginPath();
-                                context.arc(width/2, height/2, height/2, 0, 2*Math.PI, false);
+                                context.arc(width/2, height/2, (width - (2*circleMargin))/2, 0, 2*Math.PI, false);
                                 context.fillStyle = "lightblue";
                                 context.fill();
 
-                                context.beginPath();
+                                context.closePath();
                                 context.strokeStyle = "black";
-                                context.moveTo(width/2-height/2, height/2);
-                                context.lineTo(width - (width/2-height/2),height/2);
+                                context.moveTo(circleMargin, height/2);
+                                context.lineTo(width - circleMargin,height/2);
+                                context.stroke();
+                                context.closePath();
+                                context.strokeStyle = "black";
+                                context.moveTo(width/2, height - circleMargin);
+                                context.lineTo(width/2, circleMargin);
                                 context.stroke();
                                 context.beginPath();
-                                context.moveTo(width/2, height);
-                                context.lineTo(width/2,0);
-                                context.stroke();
-                                context.beginPath();
-                                //context.arc(width/2, height/2, height/2, 0, 2*Math.PI, false);
-                                //context.clip();
-                                context.moveTo( width/2 + (height/2)*Math.tan(orientationAngle) + frontSensorPos, 0 );
-                                context.lineTo( width/2 - (height/2)*Math.tan(orientationAngle) + frontSensorPos, height);
-                                context.strokeStyle = "darkred";
+                                context.arc(width/2, height/2, (width - (2*circleMargin))/2, 0, 2*Math.PI, false);
+                                context.clip();
+                                context.lineWidth = 2;
+                                context.moveTo( width/2  +
+                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, 0 );
+                                context.lineTo( width/2  -
+                                               (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, height);
+                                context.strokeStyle = "red";
                                 context.stroke();
                             }
                         }
