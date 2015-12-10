@@ -12,19 +12,57 @@
 #include "updaterequest.h"
 #include "MainWindowEventClass.h"
 
+
+/**
+ * @brief The Application class - main() indítja el
+ *
+ * a konstruktor elvégzi a megfelelő példányosításokat majd signalok bekötését
+ */
 class Application : public QApplication
 {
 public:
+    /**
+     * @brief Application - alapvető példányosítások és signalok bekötése
+     */
     Application(int argc, char *argv[]);
+
+    /// Destruktor
     ~Application() = default;
 
     QQmlApplicationEngine engine;
+    /**
+     * @brief consoleTab - Felhasználió felület Consol fül
+     */
+
     ConsoleTabEventClass consoleTab;
+    /**
+     * @brief history - Korábbi valamint aktuális állapotot tároló RobotStateHistory példány
+     */
+
     RobotStateHistory history;
+    /**
+     * @brief graphTab - felhasználói felület Graph fül
+     */
     GraphTabEventClass graphTab;
+
+    /**
+     * @brief serial - Soros port példányosíása
+     */
     CommSerial serial;
+
+    /**
+     * @brief handler - üzenetkezelő
+     */
     RobotMsgHandler handler;
+
+    /**
+     * @brief updateRequest
+     */
     UpdateRequest updateRequest;
+
+    /**
+     * @brief mainWindow - felhasználói felület főbb része
+     */
     MainWindowEventClass mainWindow;
 };
 
