@@ -8,8 +8,6 @@ RobotStateHistory::RobotStateHistory() : QObject(nullptr), currentState(nullptr)
 
 void RobotStateHistory::add(RobotState& state)
 {  
-
-    qDebug() << "EHOL";
     std::unique_ptr<RobotState> newState = std::make_unique<RobotState>();
     newState->copyFrom(state);
     stateList.append(newState.get());
