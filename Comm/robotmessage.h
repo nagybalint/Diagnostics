@@ -18,7 +18,10 @@ public:
         Terminal = 0x01,
         Error = 0x02,
         Status = 0x03,
-        Config = 0x04
+        Config = 0x04,
+        StatusRequest = 0x05,
+        SetSpeed = 0x06,
+        SetServo = 0x07
     };
 
     Type type;

@@ -7,10 +7,6 @@ RobotErrorMessage::RobotErrorMessage()
     this->type = RobotMessage::Type::Error;
 }
 
-quint32 RobotErrorMessage::getMsgSize() {
-    return this->msgSize;
-}
-
 RobotErrorMessage::Code RobotErrorMessage::getErrorCode(quint16 codeByte) {
     switch (codeByte) {
     case ((quint16) RobotErrorMessage::Code::LowBattery2S):
@@ -25,6 +21,10 @@ RobotErrorMessage::Code RobotErrorMessage::getErrorCode(quint16 codeByte) {
 
 }
 
+RobotErrorMessage::Code RobotErrorMessage::getCode() {
+    return this->errorCode;
+}
+
 int RobotErrorMessage::parseMessage(QDataStream &inStream) {
 
     if(inStream.device()->bytesAvailable() < this->msgSize)
@@ -37,8 +37,6 @@ int RobotErrorMessage::parseMessage(QDataStream &inStream) {
     inStream >> byteIn;
     error |= (byteIn << 8);
 
-    this->errorCode = this->getErrorCode(error);
     qDebug() << "ERRORIN";
-    emit robotError(this->errorCode);
     return 0;
 }

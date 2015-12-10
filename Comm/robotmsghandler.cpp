@@ -2,6 +2,8 @@
 #include "robotmessage.h"
 #include "robotterminalmessage.h"
 #include "roboterrormessage.h"
+#include "robotsetattrmessage.h"
+#include "robotstatusmessage.h"
 #include <QDataStream>
 #include <QTimer>
 #include <QIODevice>
@@ -43,6 +45,9 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
             case (RobotMessage::Type::Error):
                 messageIn = std::make_unique<RobotErrorMessage>();
                 break;
+            case(RobotMessage::Type::Status):
+                messageIn = std::make_unique<RobotStatusMessage>();
+                break;
             default:
                 // TODO emit error message
                 // Unknown message type, prepare for new message
@@ -76,6 +81,12 @@ void RobotMsgHandler::emitSignal(RobotMessage* msg) {
     case RobotMessage::Type::Terminal:
         emit this->terminalMessageReceived(((RobotTerminalMessage*) msg)->getMessage());
         break;
+    case RobotMessage::Type::Error:
+        emit this->errorMessageReceived(((RobotErrorMessage*) msg)->getCode());
+        break;
+    case RobotMessage::Type::Status:
+        emit this->statusUpdateReceived(((RobotStatusMessage*) msg)->state);
+        break;
     default:
         break;
     }
@@ -86,4 +97,11 @@ void RobotMsgHandler::sendTerminalMsg(QString& command) {
 
     RobotTerminalMessage msg(command);
     this->serial->send(msg);
+}
+
+void RobotMsgHandler::setRobotAttribute(RobotMessage::Type attr, float value) {
+
+    RobotSetAttrMessage msg(attr, value);
+    this->serial->send(msg);
+
 }

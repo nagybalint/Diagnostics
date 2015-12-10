@@ -11,6 +11,7 @@ SOURCES += main.cpp \
     Comm/commserial.cpp \
     Comm/robotterminalmessage.cpp \
     Comm/roboterrormessage.cpp \
+    Comm/robotstatusmessage.cpp \
     ConsoleTabEventClass.cpp \
     Application.cpp \
     Config/config.cpp \
@@ -20,7 +21,9 @@ SOURCES += main.cpp \
     RobotState/linesensor.cpp \
     RobotState/distancesensor.cpp \
     robotstatehistory.cpp \
-    GraphTabEventClass.cpp
+    GraphTabEventClass.cpp \
+    Comm/robotsetattrmessage.cpp \
+    Comm/robotstatusrequest.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,6 +39,7 @@ HEADERS += \
     Comm/commserial.h \
     Comm/robotterminalmessage.h \
     Comm/roboterrormessage.h \
+    Comm/robotstatusmessage.h \
     ConsoleTabEventClass.h \
     Application.h \
     Config/config.h \
@@ -45,6 +49,8 @@ HEADERS += \
     RobotState/linesensor.h \
     RobotState/distancesensor.h \
     robotstatehistory.h \
-    GraphTabEventClass.h
+    GraphTabEventClass.h \
+    Comm/robotsetattrmessage.h \
+    Comm/robotstatusrequest.h
 
 DISTFILES +=

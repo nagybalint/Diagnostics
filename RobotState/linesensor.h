@@ -10,6 +10,10 @@ class LineSensor : public QObject
 public:
     explicit LineSensor(QObject *parent = 0);
 
+    float frontLinePos;     // [m]
+    float backLinePos;      // [m]
+    float lineOrientation;  // [rad]
+
     float getFrontLinePos(void) const;
     float getBackLinePos(void) const;
     float getLineOrientation(void) const;
@@ -22,11 +26,6 @@ public:
 signals:
 
 public slots:
-
-private:
-    float frontLinePos;     // [m]
-    float backLinePos;      // [m]
-    float lineOrientation;  // [rad]
 };
 
 /* covers writeTo function */

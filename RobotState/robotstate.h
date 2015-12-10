@@ -65,7 +65,7 @@ signals:
 
 public slots:
 
-private:
+public:
     /* Configurable values (eg. controller gains) */
     Config config;
 

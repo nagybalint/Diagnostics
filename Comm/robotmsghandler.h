@@ -6,6 +6,7 @@
 #include "commserial.h"
 #include "robotmessage.h"
 #include "roboterrormessage.h"
+#include "RobotState/robotstate.h"
 
 class RobotMsgHandler : public QObject
 {
@@ -36,6 +37,7 @@ signals:
 
     void terminalMessageReceived(QString& msg);
     void errorMessageReceived(RobotErrorMessage::Code errorCode);
+    void statusUpdateReceived(RobotState& newState);
 
 private:
     void emitSignal(RobotMessage* msg);
@@ -44,6 +46,7 @@ public slots:
 
     void dataAvailable(QDataStream &inStream);
     void sendTerminalMsg(QString& command);
+    void setRobotAttribute(RobotMessage::Type attr, float value);
 
 };
 
