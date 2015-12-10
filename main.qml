@@ -93,7 +93,7 @@ ApplicationWindow {
                         Text {
                             id: batteryText
                             anchors.top: statusInfo.bottom
-                            text: qsTr("\nBattery:  3S: " + batContrV + "V   2S: " + batMotorV + "V");
+                            text: qsTr("\nBattery:\n   3S: " + batContrV + "V\n   2S: " + batMotorV + "V");
                             color: batterryTextColor
                         }
                     }
@@ -109,6 +109,7 @@ ApplicationWindow {
 
 
                         Canvas {
+                            objectName: "graphOrientation"
                             anchors.fill: parent
                             property int circleMargin: 5;
 
@@ -130,9 +131,12 @@ ApplicationWindow {
                                 context.moveTo(width/2, height - circleMargin);
                                 context.lineTo(width/2, circleMargin);
                                 context.stroke();
+
                                 context.beginPath();
                                 context.arc(width/2, height/2, (width - (2*circleMargin))/2, 0, 2*Math.PI, false);
                                 context.clip();
+
+                                context.beginPath();
                                 context.lineWidth = 2;
                                 context.moveTo( width/2  +
                                                (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, 0 );

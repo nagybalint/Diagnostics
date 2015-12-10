@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     GraphTabEventClass.cpp \
     Comm/robotsetattrmessage.cpp \
     Comm/robotstatusrequest.cpp \
-    updaterequest.cpp
+    updaterequest.cpp \
+    MainWindowEventClass.cpp
 
 RESOURCES += qml.qrc
 
@@ -53,6 +54,7 @@ HEADERS += \
     GraphTabEventClass.h \
     Comm/robotsetattrmessage.h \
     Comm/robotstatusrequest.h \
-    updaterequest.h
+    updaterequest.h \
+    MainWindowEventClass.h
 
 DISTFILES +=

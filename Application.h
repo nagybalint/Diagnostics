@@ -10,6 +10,7 @@
 #include <QTimer>
 #include "robotstatehistory.h"
 #include "updaterequest.h"
+#include "MainWindowEventClass.h"
 
 class Application : public QApplication
 {
@@ -18,12 +19,13 @@ public:
     ~Application() = default;
 
     QQmlApplicationEngine engine;
-    ConsoleTabEventClass console;
+    ConsoleTabEventClass consoleTab;
     RobotStateHistory history;
-    GraphTabEventClass testGraph;
+    GraphTabEventClass graphTab;
     CommSerial serial;
     RobotMsgHandler handler;
     UpdateRequest updateRequest;
+    MainWindowEventClass mainWindow;
 };
 
 #endif // APPLICATION_H
