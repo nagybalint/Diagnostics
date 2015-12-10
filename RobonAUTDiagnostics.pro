@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     RobotState/imu.cpp \
     RobotState/linesensor.cpp \
     RobotState/distancesensor.cpp \
-    robotstatehistory.cpp
+    robotstatehistory.cpp \
+    GraphTabEventClass.cpp
 
 RESOURCES += qml.qrc
 
@@ -43,5 +44,7 @@ HEADERS += \
     RobotState/imu.h \
     RobotState/linesensor.h \
     RobotState/distancesensor.h \
-    robotstatehistory.h
+    robotstatehistory.h \
+    GraphTabEventClass.h
 
+DISTFILES +=

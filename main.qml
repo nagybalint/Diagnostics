@@ -9,7 +9,7 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("git•egylet Diagnostics")
-    minimumWidth: 400
+    minimumWidth: 600
     minimumHeight: 400
 
     signal sendTextInput(string msg)
@@ -40,16 +40,29 @@ ApplicationWindow {
         Item {
 
             Layout.minimumWidth: 200
+
             TabView {
                 anchors.fill: parent
                 anchors.margins: 5
-                Tab{
+
+                Tab {
+                    id: graphsTab
+                    title: "Graphs"
+
+                    GraphTab {
+                        id: mainGraphTab
+                        anchors.fill: parent
+                    }
+                }
+
+                Tab {
                     id: consoleTab
                     title: "Console"
 
                     ConsoleTab {
                         id: mainConsoleTab
                         anchors.fill: parent
+
                         historyText: setHistoryText
 
                         onTextChanged: {
@@ -65,21 +78,7 @@ ApplicationWindow {
                         }
                     }
                 }
-
-                Tab {
-                    id: graphsTab
-                    title: "Graphs"
-
-                    GraphTab {
-                        id: mainGraphTab
-
-                        anchors.fill: parent
-                    }
-
-
-                }
             }
         }
-
     }
 }

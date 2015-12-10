@@ -9,8 +9,10 @@
 class ConsoleTabEventClass : public QObject
 {
     Q_OBJECT
+
 public:
     ConsoleTabEventClass(QQmlContext &context);
+    ~ConsoleTabEventClass() = default;
 
 signals:
 

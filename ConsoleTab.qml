@@ -22,6 +22,7 @@ Item {
 
     ColumnLayout {
         id: base
+
         anchors.fill: parent
         Layout.minimumWidth: 200
 
@@ -36,7 +37,7 @@ Item {
 
 
             ScrollView {
-                id: scrollView1
+                id: scrollHistory
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
 
                 anchors.fill: parent
@@ -53,7 +54,6 @@ Item {
                     }
                 }
             }
-
         }
 
         Rectangle {
@@ -65,7 +65,6 @@ Item {
             Layout.minimumWidth: base.width
             border.color: "grey"
             border.width: 1
-
 
             TextInput {
                 id: inputText
