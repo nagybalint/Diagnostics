@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QDataStream>
 
+/**
+ * @brief Távolságérzékelő szenzorok adatai (bal, jobb, első)
+ */
 class DistanceSensor : public QObject
 {
     Q_OBJECT
