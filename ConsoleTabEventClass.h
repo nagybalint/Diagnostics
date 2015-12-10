@@ -7,7 +7,7 @@
 #include <QQmlApplicationEngine>
 /**
  * @brief ConsoleTabEventClass -
- * Console fülhöz tartozó események kezelője
+ * Console fülhöz tartozó eseményeket kezelő osztály, qml-hez kapcsolódik, és kezeli az eseményeit
  *
  */
 class ConsoleTabEventClass : public QObject
@@ -15,39 +15,66 @@ class ConsoleTabEventClass : public QObject
     Q_OBJECT
 
 public:
+
+    /**
+     * @brief ConsoleTabEventClass - konsruktor, csatlakozik a szükséges qml oldali változókhoz
+     * @param context - qml kontextus, a változók eléréséhez
+     */
     ConsoleTabEventClass(QQmlContext &context);
     ~ConsoleTabEventClass() = default;
 
 signals:
 
-    /** @brief Érvényes utasítás esetén jelez*/
+    /**
+     * @brief commandAvailable - Érvényes utasítás esetén jelez
+     * @param cmd - bejövő utasítás
+     */
     void commandAvailable(QString& cmd);
 
 public slots:
-    /** @brief Console felöl érkező szöveg kezelése*/
+    /**
+     * @brief consoleTextArrived - Console felöl érkező szöveg kezelése
+     * @param text - beérkezett szöveg
+     */
     void consoleTextArrived(QString text);
 
-    /** @brief Speciális billenytű lenyomásának kezelése */
+    /**
+     * @brief consoleKeyPressed - Speciális billenytű lenyomásának kezelése
+     * @param key - billenyű azanosítására segédváltozó
+     */
     void consoleKeyPressed(int key);
 
-    /** @brief Megváltozott lista kezelése*/
+    /**
+     * @brief listChanged - Megváltozott lista kezelése
+     */
     void listChanged();
 
-    /** @brief Elem hozzáadása a listához*/
+    /**
+     * @brief addToListView - String hozzáadása a listához
+     * @param string - Eltárolandó string
+     */
     void addToListView(QString& string);
 
 private:
 
-    /** @brief Context a qml adatok frissiítéséhez*/
+    /**
+     * @brief qmlContext - Kontextus a qml adatok frissiítéséhez
+     */
     QQmlContext &qmlContext;
 
-    /** @brief Consolba kiírandó szövegek listája*/
+    /**
+     * @brief dataList - Consolba kiírandó szövegek listája
+     */
     QStringList dataList;
 
-    /** @brife előző parancsokat tároló lista*/
+    /**
+     * @brief historyList - Előző parancsokat tároló lista
+     */
     QStringList historyList;
 
-    /** @brief Segédváltozó console előzményekhez*/
+    /**
+     * @brief historyCurrent - Segédváltozó console előzményekhez
+     */
     int historyCurrent;
 };
 

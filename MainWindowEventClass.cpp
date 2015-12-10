@@ -16,7 +16,7 @@ MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHisto
 void MainWindowEventClass::graphChanged() {
 
     qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue((qreal)history.currentState->lineSensor.getFrontLinePos()));
-    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)history.currentState->lineSensor.getLineOrientation()));
+    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)1));
     qmlContext.setContextProperty(QStringLiteral("graphBatContrV"), QVariant::fromValue((qreal)history.currentState->batVoltage3S));
     qmlContext.setContextProperty(QStringLiteral("graphBatMotorV"), QVariant::fromValue((qreal)history.currentState->batVoltage2S));
 
