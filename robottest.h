@@ -46,7 +46,7 @@ public slots:
     void run();
 
     /**
-     * @brief abort - leállítja  arobot tesztelését
+     * @brief abort - leállítja a robot tesztelését
      */
     void abort();
 };

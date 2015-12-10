@@ -16,11 +16,14 @@ ApplicationWindow {
     signal keyPressed(int msg)
     signal startCommand()
     signal stopCommand()
+    signal runTestCmd()
+    signal abortTestCmd()
 
     property var frontSensorPos: graphFrontSensorPos
     property var orientationAngle: graphOrientationAngle
     property var batContrV: graphBatContrV
     property var batMotorV: graphBatMotorV
+    property var selfTestMsg: selfTestMessage
 
 
     menuBar : MenuBar {
@@ -91,10 +94,50 @@ ApplicationWindow {
                         }
 
                         Text {
-                            id: batteryText
+                            id: battery3SText
                             anchors.top: statusInfo.bottom
                             text: qsTr("\nBattery:\n   3S: " + batContrV + "V\n   2S: " + batMotorV + "V");
                             color: batterryTextColor
+                        }
+
+                        Text {
+                            id: selftestText
+                            anchors.top: battery3SText.bottom
+                            anchors.margins: 5
+                            font.pixelSize: 15
+                            width: parent.width/2
+                            text: qsTr("Selftest:")
+                        }
+
+                        Button {
+                            id:runTestBtn
+                            anchors.top: selftestText.bottom
+                            anchors.left: parent.left
+                            width: parent.width/2
+                            text: qsTr("Run")
+                            onClicked: runTestCmd()
+
+                        }
+
+                        Button {
+                            id:abortTestBtn
+                            anchors.top: selftestText.bottom
+                            anchors.left: runTestBtn.right
+                            anchors.right: parent.right
+                            text: qsTr("Abort")
+                            onClicked: abortTestCmd()
+                        }
+
+                        Text {
+                            id: msgText
+                            anchors.top: abortTestBtn.bottom
+                            text: qsTr("Message:")
+                        }
+
+                        Text {
+                            id: testMessage
+                            anchors.top: msgText.bottom
+                            text: qsTr("" + selfTestMessage);
                         }
                     }
 

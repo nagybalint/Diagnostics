@@ -11,6 +11,7 @@
 #include "robotstatehistory.h"
 #include "updaterequest.h"
 #include "MainWindowEventClass.h"
+#include "robottest.h"
 
 
 /**
@@ -64,6 +65,8 @@ public:
      * @brief mainWindow - felhasználói felület főbb része
      */
     MainWindowEventClass mainWindow;
+
+    RobotTest selfTest;
 };
 
 #endif // APPLICATION_H

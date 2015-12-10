@@ -3,11 +3,12 @@
 #include "Comm/commserial.h"
 #include "Comm/robotmsghandler.h"
 #include "Comm/robotterminalmessage.h"
+#include "robottest.h"
 
 Application::Application(int argc, char *argv[])
     : QApplication(argc, argv), engine(), consoleTab(*engine.rootContext()), history(),
       graphTab(*engine.rootContext(), history), serial(), handler(serial),
-      updateRequest(handler), mainWindow(*engine.rootContext(), history)
+      updateRequest(handler), mainWindow(*engine.rootContext(), history), selfTest(handler)
 {
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -30,9 +31,15 @@ Application::Application(int argc, char *argv[])
     QObject::connect(rootObject, SIGNAL(keyPressed(int)), &consoleTab, SLOT(consoleKeyPressed(int)));
     QObject::connect(rootObject, SIGNAL(startCommand()), &mainWindow, SLOT(startCommand()));
     QObject::connect(rootObject, SIGNAL(stopCommand()), &mainWindow, SLOT(stopCommand()));
+    QObject::connect(rootObject, SIGNAL(runTestCmd()), &selfTest, SLOT(run()));
+    QObject::connect(rootObject, SIGNAL(abortTestCmd()), &selfTest, SLOT(abort()));
     QObject::connect(&consoleTab, SIGNAL(commandAvailable(QString&)), &handler, SLOT(sendTerminalMsg(QString&)));
     QObject::connect(&handler, SIGNAL(terminalMessageReceived(QString&)), &consoleTab, SLOT(addToListView(QString&)));
     QObject::connect(&handler, SIGNAL(statusUpdateReceived(RobotState&)), &history, SLOT(add(RobotState&)));
+    QObject::connect(&handler, SIGNAL(errorMessageReceived(RobotErrorMessage::Code)), &mainWindow, SLOT(errorMsgReceived(RobotErrorMessage::Code)));
+    QObject::connect(&selfTest, SIGNAL(robotTestMessage(QString)), &mainWindow, SLOT(selfTestReceivedMessage(QString)));
+
+
 
     serial.connect();
     updateRequest.start(100);
