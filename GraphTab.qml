@@ -28,7 +28,7 @@ Item {
                 xAxisUnit: "sec"
                 yAxisUnit: "m/s"
                 graphXAxis: graphSpeedData
-                maxValue: 10
+                maxValue: 12
                 lineColor: "green"
             }
         }
@@ -49,7 +49,7 @@ Item {
                 xAxisUnit: "sec"
                 yAxisUnit: "position"
                 graphXAxis: graphPositionData
-                maxValue: 0.01
+                maxValue: 0.2
                 lineColor: "red"
             }
         }
@@ -70,7 +70,7 @@ Item {
                 xAxisUnit: "sec"
                 yAxisUnit: "rad"
                 graphXAxis: graphSteeringAngleData
-                maxValue: 10
+                maxValue: 2
                 lineColor: "blue"
             }
         }
