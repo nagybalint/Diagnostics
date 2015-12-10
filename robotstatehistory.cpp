@@ -27,7 +27,7 @@ void RobotStateHistory::add(RobotState& state)
     {
         RobotState* currentState = it->get();
         graphSteeringAngle.append(currentState->getSteeringAngle());
-        graphFrontLinePos.append(currentState->getFrontSensorAngle());
+        graphFrontLinePos.append(currentState->lineSensor.getFrontLinePos());
         graphCarSpeed.append(currentState->getCarSpeed());
     }
 
