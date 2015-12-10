@@ -8,6 +8,7 @@
 #include "Comm/robotmsghandler.h"
 #include "GraphTabEventClass.h"
 #include <QTimer>
+#include "robotstatehistory.h"
 
 class Application : public QApplication
 {
@@ -17,6 +18,7 @@ public:
 
     QQmlApplicationEngine engine;
     ConsoleTabEventClass console;
+    RobotStateHistory history;
     GraphTabEventClass testGraph;
     CommSerial serial;
     RobotMsgHandler handler;

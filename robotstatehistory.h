@@ -25,7 +25,7 @@ public:
     QList<float> graphFrontLinePos;
     QList<float> graphCarSpeed;
     /* number of previous states to show */
-    const int shownStateNumber = 20;
+    const int shownStateNumber = 100;
 
     /* Append a copy of the parameter to the end of the history and update currendState */
     void add(const RobotState& state);

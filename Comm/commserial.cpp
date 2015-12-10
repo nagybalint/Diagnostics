@@ -1,6 +1,6 @@
 #include "commserial.h"
 #include <QDebug>
-
+#include <QDataStream>
 
 CommSerial::CommSerial() : receiveStream(nullptr) {
 

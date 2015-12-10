@@ -5,8 +5,8 @@
 #include "Comm/robotterminalmessage.h"
 
 Application::Application(int argc, char *argv[])
-    : QApplication(argc, argv), engine(), console(*engine.rootContext()), testGraph(*engine.rootContext()),
-      serial(), handler(serial)
+    : QApplication(argc, argv), engine(), console(*engine.rootContext()), history(),
+      testGraph(*engine.rootContext(), history), serial(), handler(serial)
 {
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -20,7 +20,8 @@ Application::Application(int argc, char *argv[])
 
     QObject *rootObject = rootObjects[0];
 
-    testGraph.connectQmlSignals(rootObject, QString("positionGraph"));
+    testGraph.connectQmlSignals(rootObject, QString("speedGraph"));
+
 
     QObject::connect(rootObject, SIGNAL(sendTextInput(QString)), &console, SLOT(consoleTextArrived(QString)));
     QObject::connect(rootObject, SIGNAL(keyPressed(int)), &console, SLOT(consoleKeyPressed(int)));

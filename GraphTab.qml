@@ -45,9 +45,8 @@ Item {
                 anchors.fill: parent
 
                 xAxisUnit: "sec"
-                yAxisUnit: "Position"
+                yAxisUnit: "position"
                 graphXAxis: graphPositionData
-
             }
         }
 
@@ -61,12 +60,12 @@ Item {
 
             DrawGraph {
                 id: graphOrientation
-                objectName: "orientationGraph"
+                objectName: "steeringAngleGraph"
                 anchors.fill: parent
 
                 xAxisUnit: "sec"
                 yAxisUnit: "rad"
-                graphXAxis: graphOrientationData
+                graphXAxis: graphSteeringAngleData
             }
         }
     }
