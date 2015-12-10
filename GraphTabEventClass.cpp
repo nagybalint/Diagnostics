@@ -1,15 +1,22 @@
 #include "GraphTabEventClass.h"
+#include <QQmlContext>
 
-GraphTabEventClass::GraphTabEventClass(QQmlContext &context)
-    : qmlContext(context)
+GraphTabEventClass::GraphTabEventClass(QQmlContext &context, RobotStateHistory &history)
+    : qmlContext(context), history(history)
 {
-
+    QObject::connect(&this->history, SIGNAL(historyChanged()),this, SLOT(graphChanged()));
+    qmlContext.setContextProperty(QStringLiteral("graphSpeedData"), QVariant::fromValue(this->history.graphCarSpeed));
+    qmlContext.setContextProperty(QStringLiteral("graphPositionData"), QVariant::fromValue(this->history.graphFrontLinePos));
+    qmlContext.setContextProperty(QStringLiteral("graphSteeringAngleData"), QVariant::fromValue(this->history.graphSteeringAngle));
 }
 
 void GraphTabEventClass::graphChanged() {
 
-    emit graphContextUpdated();
+    qmlContext.setContextProperty(QStringLiteral("graphSpeedData"), QVariant::fromValue(history.graphCarSpeed));
+    qmlContext.setContextProperty(QStringLiteral("graphPositionData"), QVariant::fromValue(history.graphFrontLinePos));
+    qmlContext.setContextProperty(QStringLiteral("graphSteeringAngleData"), QVariant::fromValue(history.graphSteeringAngle));
 
+    emit graphContextUpdated();
 }
 
 QQuickItem* GraphTabEventClass::FindItemByName(QList<QObject *> nodes, const QString &name) {

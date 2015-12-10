@@ -8,6 +8,9 @@
 ConsoleTabEventClass::ConsoleTabEventClass(QQmlContext &context)
     : qmlContext(context)
 {
+    qmlContext.setContextProperty(QStringLiteral("setHistoryText"), QVariant::fromValue(QString("")));
+    qmlContext.setContextProperty(QStringLiteral("monitorModel"), QVariant::fromValue(dataList));
+
     historyCurrent = 0;
     QString placeHolder("");
     this->dataList.append(placeHolder);

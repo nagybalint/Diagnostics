@@ -4,12 +4,13 @@
 #include <QObject>
 #include <QQuickItem>
 #include <QQmlApplicationEngine>
+#include <robotstatehistory.h>
 
 class GraphTabEventClass : public QObject
 {
     Q_OBJECT
 public:
-    GraphTabEventClass(QQmlContext &context);
+    GraphTabEventClass(QQmlContext &context, RobotStateHistory &history);
 
     ~GraphTabEventClass() = default;
 
@@ -24,6 +25,7 @@ signals:
 
 private:
     QQmlContext &qmlContext;
+    RobotStateHistory &history;
 
     static QQuickItem* FindItemByName(QObject *rootObject, const QString& name);
 

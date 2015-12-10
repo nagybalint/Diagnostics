@@ -1,4 +1,4 @@
-import QtQuick 2.4
+import QtQuick 2.5
 
 Canvas {
 
@@ -6,7 +6,7 @@ Canvas {
     anchors.fill: parent
 
     width: graphCanvas.width
-    height: graphCanvas,height
+    height: graphCanvas.height
 
     property var graphXAxis;
     property var graphYAxis;
@@ -33,9 +33,9 @@ Canvas {
         context.moveTo(0, xAxisHpos );
         context.lineTo(graphCanvas.width - ownMargin,xAxisHpos);
         context.stroke();
-        context.fillStyle = "black"
-        context.font = "20px"
-        context.fillText(xAxisUnit, graphCanvas.width - ownMargin - 15,xAxisHpos - 5);
+        context.fillStyle = "black";
+        //context.font = "20px";
+        //context.fillText(xAxisUnit, graphCanvas.width - ownMargin - 15,xAxisHpos - 5);
     }
 
     function drawYAxis(context) {
@@ -44,7 +44,7 @@ Canvas {
         context.moveTo(ownMargin, ownMargin);
         context.lineTo(ownMargin, graphCanvas.height - ownMargin);
         context.stroke();
-        context.fillText(yAxisUnit, ownMargin + 5, ownMargin + 10);
+        //context.fillText(yAxisUnit, ownMargin + 5, ownMargin + 10);
     }
 
     function drawGraph(context, data, style, verticalScale) {
@@ -52,6 +52,7 @@ Canvas {
 
         context.beginPath();
         context.moveTo(ownMargin, offset-data[0]);
+
 
         for (var i = 0; i < graphXAxis.length; i++) {
             context.lineTo( (ownMargin + (((graphCanvas.width - ownMargin) / 100) * i))
