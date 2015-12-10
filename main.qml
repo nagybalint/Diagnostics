@@ -2,6 +2,7 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     id:appwindow
@@ -22,13 +23,32 @@ ApplicationWindow {
     property var batContrV: graphBatContrV
     property var batMotorV: graphBatMotorV
 
+    Dialog {
+        id: dialogtmp;
+        visible: false;
+        title: "Settings"
+        Layout.minimumHeight: 100
+        Layout.minimumWidth: 100
+        width: 100
+        height: 200
+
+        Text {
+            id: todo
+            text: qsTr("TODO serial port Settings")
+            color: "red"
+        }
+
+    }
 
     menuBar : MenuBar {
 
         Menu {
             title: "File"
 
-            MenuItem {text: "Settings"}
+            MenuItem {
+                text: "Settings"
+                onTriggered: dialogtmp.visible = true;
+            }
             MenuItem {
                 text: "Exit"
                 onTriggered: Qt.quit();
@@ -136,9 +156,12 @@ ApplicationWindow {
                                 context.moveTo(width/2, height - circleMargin);
                                 context.lineTo(width/2, circleMargin);
                                 context.stroke();
+
                                 context.beginPath();
                                 context.arc(width/2, height/2, (width - (2*circleMargin))/2, 0, 2*Math.PI, false);
                                 context.clip();
+
+                                context.beginPath();
                                 context.lineWidth = 2;
                                 context.moveTo( width/2  +
                                                (height/2)*Math.tan(orientationAngle) + frontSensorPos*3, 0 );

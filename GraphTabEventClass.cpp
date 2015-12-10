@@ -20,7 +20,6 @@ void GraphTabEventClass::graphChanged() {
     qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue(history.graphFrontLinePos.last()));
     qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue(0.05));
 
-
     emit graphContextUpdated();
 }
 

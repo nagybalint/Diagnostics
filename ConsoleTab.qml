@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.1
 
 Item {
     id: root
+    anchors.fill: parent
 
     signal textChanged(string msg)
     signal upKeyPressed()
@@ -62,9 +63,11 @@ Item {
             height: 25
             color: "white"
             radius: 1
-            Layout.minimumWidth: base.width
+            Layout.preferredWidth: parent.width
             border.color: "grey"
             border.width: 1
+            anchors.right: parent.right
+            anchors.left: parent.left
 
             TextInput {
                 id: inputText
