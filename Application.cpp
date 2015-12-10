@@ -24,6 +24,8 @@ Application::Application(int argc, char *argv[])
     QObject *rootObject = rootObjects[0];
 
     testGraph.connectQmlSignals(rootObject, QString("speedGraph"));
+    testGraph.connectQmlSignals(rootObject, QString("positionGraph"));
+    testGraph.connectQmlSignals(rootObject, QString("steeringAngleGraph"));
 
     QObject::connect(rootObject, SIGNAL(sendTextInput(QString)), &console, SLOT(consoleTextArrived(QString)));
     QObject::connect(rootObject, SIGNAL(keyPressed(int)), &console, SLOT(consoleKeyPressed(int)));
@@ -32,7 +34,7 @@ Application::Application(int argc, char *argv[])
     QObject::connect(&handler, SIGNAL(statusUpdateReceived(RobotState&)), &history, SLOT(add(RobotState&)));
 
     serial.connect();
-    updateRequest.start(2000);
+    updateRequest.start(100);
 
 }
 

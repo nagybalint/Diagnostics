@@ -112,12 +112,6 @@ ApplicationWindow {
                             anchors.fill: parent
                             property int circleMargin: 5;
 
-                            Text {
-                                id: canvasText
-                                anchors.bottom: parent.bottom
-                                text: qsTr("Car\nOrientation:")
-                            }
-
                             onPaint: {
                                 var context = getContext("2d");
 

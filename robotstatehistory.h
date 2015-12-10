@@ -22,9 +22,9 @@ public:
     std::vector<std::unique_ptr<RobotState>> container;
 
     /* Lists for QML graph drawing */
-    QList<float> graphSteeringAngle;
-    QList<float> graphFrontLinePos;
-    QList<float> graphCarSpeed;
+    QList<qreal> graphSteeringAngle;
+    QList<qreal> graphFrontLinePos;
+    QList<qreal> graphCarSpeed;
     /* number of previous states to show */
     const int shownStateNumber = 100;
 
