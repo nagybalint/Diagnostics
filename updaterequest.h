@@ -5,6 +5,11 @@
 #include <QTimer>
 #include "Comm/robotmsghandler.h"
 
+/**
+ * @brief UpdateRequest osztály
+ * Egy beállított periódusidővel kérdezi le a robottól a státuszát
+ */
+
 class UpdateRequest : public QObject
 {
     Q_OBJECT

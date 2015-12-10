@@ -2,7 +2,6 @@
 #define ROBOTMSGHANDLER_H
 
 #include <QObject>
-
 #include "commserial.h"
 #include "robotmessage.h"
 #include "roboterrormessage.h"
@@ -31,6 +30,7 @@ private:
     ParseState currentParseState;
     CommSerial* serial;
     std::unique_ptr<RobotMessage> messageIn;
+    void emitSignal(RobotMessage* msg);
 
 signals:
     void messageError(RobotMsgHandler::Error errorCode);
@@ -38,9 +38,6 @@ signals:
     void terminalMessageReceived(QString& msg);
     void errorMessageReceived(RobotErrorMessage::Code errorCode);
     void statusUpdateReceived(RobotState& newState);
-
-private:
-    void emitSignal(RobotMessage* msg);
 
 public slots:
 

@@ -1,8 +1,10 @@
 #include "robotsetattrmessage.h"
 
 RobotSetAttrMessage::RobotSetAttrMessage(RobotMessage::Type type, float value) {
-    this->type = type;
-    this->value = value;
+    if(type == RobotMessage::Type::SetServo || type == RobotMessage::Type::SetSpeed) {
+        this->type = type;
+        this->value = value;
+    }
 }
 
 // Dummy function
