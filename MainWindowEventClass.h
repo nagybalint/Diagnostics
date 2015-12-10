@@ -6,6 +6,7 @@
 #include <QQuickItem>
 #include <QQmlApplicationEngine>
 #include "robotstatehistory.h"
+#include "Comm/roboterrormessage.h"
 
 /**
  * @brief The MainWindowEventClass class - Tartalmazza a felhasználói felület eseménykezelőit
@@ -54,6 +55,10 @@ public slots:
      * @brief startCommand - parancs mely leállítja a futást
      */
     void startCommand();
+
+    void errorMsgReceived(RobotErrorMessage::Code code);
+
+    void selfTestReceivedMessage(QString message);
 
 signals:
     /**

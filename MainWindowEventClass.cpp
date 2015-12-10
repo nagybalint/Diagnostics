@@ -2,6 +2,7 @@
 #include <QQmlContext>
 #include "RobotState/robotstate.h"
 #include <QDebug>
+#include <Comm/roboterrormessage.h>
 
 MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHistory &hState) :
     qmlContext(context), history(hState)
@@ -16,7 +17,7 @@ MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHisto
 void MainWindowEventClass::graphChanged() {
 
     qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue((qreal)history.currentState->lineSensor.getFrontLinePos()));
-    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)1));
+    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)history.currentState->lineSensor.getLineOrientation()));
     qmlContext.setContextProperty(QStringLiteral("graphBatContrV"), QVariant::fromValue((qreal)history.currentState->batVoltage3S));
     qmlContext.setContextProperty(QStringLiteral("graphBatMotorV"), QVariant::fromValue((qreal)history.currentState->batVoltage2S));
 
@@ -29,6 +30,26 @@ void MainWindowEventClass::startCommand() {
 
 void MainWindowEventClass::stopCommand() {
     qDebug() << "Stop comand arrived";
+}
+
+void MainWindowEventClass::errorMsgReceived(RobotErrorMessage::Code code) {
+    switch (code) {
+
+    case RobotErrorMessage::Code::LowBattery3S:
+        qmlContext.setContextProperty(QStringLiteral("batterryTextColor"), QVariant::fromValue(QString("red")));
+        break;
+
+    case RobotErrorMessage::Code::LowBattery2S:
+        qmlContext.setContextProperty(QStringLiteral("batterryTextColor"), QVariant::fromValue(QString("red")));
+        break;
+
+    default:
+        break;
+    }
+}
+
+void MainWindowEventClass::selfTestReceivedMessage(QString message) {
+        qmlContext.setContextProperty(QStringLiteral("selfTestMessage"), QVariant::fromValue((message)));
 }
 
 QQuickItem* MainWindowEventClass::FindItemByName(QList<QObject *> nodes, const QString &name) {
