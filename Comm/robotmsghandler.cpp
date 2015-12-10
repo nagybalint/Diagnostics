@@ -4,9 +4,11 @@
 #include "roboterrormessage.h"
 #include "robotsetattrmessage.h"
 #include "robotstatusmessage.h"
+#include "robotstatusrequest.h"
 #include <QDataStream>
 #include <QTimer>
 #include <QIODevice>
+#include <QDebug>
 #include <memory>
 
 
@@ -45,8 +47,9 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
             case (RobotMessage::Type::Error):
                 messageIn = std::make_unique<RobotErrorMessage>();
                 break;
-            case(RobotMessage::Type::Status):
+            case(RobotMessage::Type::StatusUpdate):
                 messageIn = std::make_unique<RobotStatusMessage>();
+                qDebug() << "STATUS TYPE ID";
                 break;
             default:
                 // TODO emit error message
@@ -61,6 +64,7 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
                 emitSignal(messageIn.get());
                 currentParseState = RobotMsgHandler::ParseState::EndByte;
             }
+            break;
 
         case RobotMsgHandler::ParseState::EndByte:
             inStream >> byteIn;
@@ -72,6 +76,7 @@ void RobotMsgHandler::dataAvailable(QDataStream &inStream) {
         default:
             break;
         }
+
     }
 }
 
@@ -84,7 +89,7 @@ void RobotMsgHandler::emitSignal(RobotMessage* msg) {
     case RobotMessage::Type::Error:
         emit this->errorMessageReceived(((RobotErrorMessage*) msg)->getCode());
         break;
-    case RobotMessage::Type::Status:
+    case RobotMessage::Type::StatusUpdate:
         emit this->statusUpdateReceived(((RobotStatusMessage*) msg)->state);
         break;
     default:
@@ -104,4 +109,9 @@ void RobotMsgHandler::setRobotAttribute(RobotMessage::Type attr, float value) {
     RobotSetAttrMessage msg(attr, value);
     this->serial->send(msg);
 
+}
+
+void RobotMsgHandler::sendStatusRequest() {
+    RobotStatusRequest msg;
+    this->serial->send(msg);
 }

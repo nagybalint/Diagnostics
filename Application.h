@@ -7,6 +7,7 @@
 #include "Comm/commserial.h"
 #include "Comm/robotmsghandler.h"
 #include "GraphTabEventClass.h"
+#include <QTimer>
 
 class Application : public QApplication
 {
@@ -16,10 +17,9 @@ public:
 
     QQmlApplicationEngine engine;
     ConsoleTabEventClass console;
+    GraphTabEventClass testGraph;
     CommSerial serial;
     RobotMsgHandler handler;
-    GraphTabEventClass testGraph;
-
 };
 
 #endif // APPLICATION_H

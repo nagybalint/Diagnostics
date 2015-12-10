@@ -17,6 +17,6 @@ signals:
 public slots:
 };
 
-QDataStream& operator<<(QDataStream&, RobotStatusRequest&);
+QDataStream& operator<<(QDataStream&, const RobotStatusRequest&);
 
 #endif // ROBOTSTATUSREQUEST_H

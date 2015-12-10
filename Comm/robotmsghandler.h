@@ -47,6 +47,7 @@ public slots:
     void dataAvailable(QDataStream &inStream);
     void sendTerminalMsg(QString& command);
     void setRobotAttribute(RobotMessage::Type attr, float value);
+    void sendStatusRequest();
 
 };
 

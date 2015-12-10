@@ -36,7 +36,5 @@ int RobotErrorMessage::parseMessage(QDataStream &inStream) {
     error = byteIn;
     inStream >> byteIn;
     error |= (byteIn << 8);
-
-    qDebug() << "ERRORIN";
     return 0;
 }

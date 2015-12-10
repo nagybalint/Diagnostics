@@ -12,9 +12,10 @@ int RobotStatusRequest::parseMessage(QDataStream &inStream) {
 }
 
 
-QDataStream& operator<<(QDataStream& stream, RobotStatusRequest& msg) {
+QDataStream& operator<<(QDataStream& stream, const RobotStatusRequest& msg) {
     stream << (quint8) DEBUG_MSG_START_CODE;
     stream << (quint8) msg.type;
     stream << (quint8) 0; // Dummy data for robot state machine
     stream << (quint8) DEBUG_MSG_END_CODE;
+    return stream;
 }

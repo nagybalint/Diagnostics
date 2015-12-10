@@ -16,7 +16,7 @@ public:
     int parseMessage(QDataStream &inStream) override;
 
 private:
-    static const quint32 size = 5 * sizeof(float);
+    static const quint32 size = 5 * sizeof(quint32);
 signals:
 
 public slots:
