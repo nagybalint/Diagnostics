@@ -52,3 +52,7 @@ A bejövő és kimenő üzenetek könnyű kezeléséhez a RobotMsgHandler osztá
 @section UI A user interface
 Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az adatok összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok
 újrarajzolásáért, valamint gombok kezeléséért. 
+
+A ConsoleTabEventClass() kezeli a soros porthoz tartozó fület, mely segítségével üzeneteket küldhetünk és fogadhatunk soros porton, GraphTabEventClass() osztály szolgál a grafikonokat tartalmazó fül eseményeinek kezeléséért, minden új adat érkezése esetén újrarajzolja a grafikonjainkat
+
+MainWindowEventClass() segítségével kezeljük az egyéb általánosabb UI elemeket (pl: gombok, menü)
