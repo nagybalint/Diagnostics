@@ -8,7 +8,7 @@
 /**
  * @brief ConsoleTabEventClass -
  * Console fülhöz tartozó eseményeket kezelő osztály, qml-hez kapcsolódik, és kezeli az eseményeit
- *
+ * @bug Az osztály nem kezeli helyesen a beérkező ESCAPE karaktereket.
  */
 class ConsoleTabEventClass : public QObject
 {
