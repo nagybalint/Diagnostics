@@ -1,5 +1,8 @@
 @mainpage
 @tableofcontents
+
+Public Github repository: https://github.com/nagybalint/Diagnostics
+
 @section Feladat A feladat specifikációja
 A félév során a feladat egy, a RobonAUT versenyre való felkészülést megkönnyítő QT alkalmazás ltérehozása volt. Egy ilyen, grafkius user interfésszel rendelkező diagnosztikai program számos előnnyel bír egy hasonló jellegű versenyre való készülődéskor. Az alkalmazás lehetséges felhasználási területei közül láthatunk néhányat az alábbi use-case diagramon.
 
