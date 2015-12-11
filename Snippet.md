@@ -25,10 +25,10 @@ kezdetben meglehetősen nehézkes volt megfelelően összeilleszteni a két olda
 ![UI](images/ui.JPG "Felhasználói felület")
 
 ## Problémák
-### QML álatl támogatott adattípusok
+### QML által támogatott adattípusok
 Grafikonok rajzolása során futottunk bele abba a hibába, miszerint float típusú listát szerettünk volna QML oldalról elérni, de ez sokadik próbálkozásra sem
 tűnt úgy, hogy működőképes lesz. Alapértelmezetten át kellett volna alakítania a float típusunkat QML számára is értelmezhető real típussá, végül a problémát
-float helyett Qreal típusú lista használatával sikerült megoldani.
+float helyett qreal típusú lista használatával sikerült megoldani.
 
 ### QByteArray-float konverzió
 
@@ -48,9 +48,8 @@ Ennek az eredménye azonban folyamatosan 0-kat adott, pedig QByteArray  `qDebug(
 Az érdekes hibajelenség alternatívájaként a következő magától értetődő, "C stílusú" megoldás született,
 ```
 float value;
-quint8* bytePtr = (quint8) &value;
+quint8* bytePtr = (quint8*) &value;
 
-bytePtr = (quint8*) &(byteInArray[i]);
 for(int j = 0; j < 4; j++) {
     inStream >> byteIn;
     bytePtr[j] = byteIn;
@@ -63,6 +62,6 @@ A hiba okára azóta sem sikerült rájönnünk (nem nagy hiba, nagyon sokat nem
 
 <div style="text-align:center" markdown="1">
 
-![Alt Text](images/logo.png#center "git•egylet")
+![Alt Text](images/logo.png "git•egylet")
 
-<small>Szerzők, verziók: Divald Viktor, Nagy Bálint Máté, Szabó OSzkár</small>
+<small>Szerzők: Divald Viktor, Nagy Bálint Máté, Szabó Oszkár</small>
