@@ -18,8 +18,6 @@ Sajnos technikai nehézségből bőven adódott a videó rögzítésekor
 - A videón sajnos nincs hang
 - A videó rögzítése során az autónk nagyon messze volt a használható állapottól, ezért a bejövő adatok az STM32F4 discovery által 'szimulált' adatok. E miatt nem látható változás a sebesség és kormányszög váloztatásánál a self test során.
 
-
-
 @section Alkalmazas Az alkalmazás felépítése
 Az alkalmazés elkészítése során törekedtünk a Model-View-Controller archtitektúra szerint történő fejlesztésre. Azaz igyekeztünk az osztályainkat, funkcióinkat úgy szétválasztani, hogy az elvégzett feladataik az alábbi kategóriák egyikébe, és lehetőleg kizárólag az egyikbe essenek
 - A robot állapotleírásának reprezentációja, a robot állapotainak tárolása, a felhasználói felület feltöltése adatokkal, új adatok lekérdezésének kezdeményezése
@@ -27,12 +25,13 @@ Az alkalmazés elkészítése során törekedtünk a Model-View-Controller archt
 - Új adatok biztosítása a robot állapotleírásához, kommunikáció kezelése, üzenetek küldése fogadása
 
 @section Allapot A robot állapotleírása
-A robot egy időpillanthoz tartozó állapotát egy RobotState osztály fogja össze. Ez a robotra jellemző adatokat tartalmazza (vonalszenzor adatai, szabályozó paraméterek, akku feszültség, autó sebesség, lásd: a linkelt osztályt).
+A robot egy időpillanthoz tartozó állapotát egy RobotState osztály fogja össze. Ez a robotra jellemző adatokat tartalmazza (vonalszenzor adatai, szabályozó paraméterek, akku feszültség, autó sebesség, lásd: a linkelt osztályt), melyet az alábbi osztálydiagram szemléltet.
 
-A robot állapot lekérdezését egy timer ütemezi, 100 milliszekundumonként kér új státuszjelentést a robottól. Minden a robottól kapott státusz üzenet bekerül egy RobotState példányba, ami aztán mentésre kerül egy history-ban.
-A RobotStateHistory osztály megvalósít egy tárolót (std::vector), aminek az elemei RobotState példányokra mutató unique pointerek. Ezen felül tárolja az utolsó N db elemet külön QList listákban is, mivel a QML csak ezeket tudja feldolgozni.
+![](umldiagrams/robotstate.jpg)
 
-A robot aktuális állapotára mindig mutat a RobotStateHistory::currentState pointer.
+A robot állapota periodikusan lekérdezésre kerül. Ezt a szolgáltatást az UpdateRequest osztály biztosítja egy QTimer segítségével. A robottól fogadott új státuszüzenet elmentődik egy RobotState példányba, melyet egy RobotStateHistory objektum eltárol.
+
+A RobotStateHistory osztály megvalósít egy tárolót (std::vector), aminek az elemei RobotState példányokra mutató unique pointerek. Ezen felül tárolja az utolsó N db elemet külön QList listákban is, mivel a QML csak ezeket tudja feldolgozni. A robot aktuális állapotára mindig mutat a RobotStateHistory::currentState pointer.
 
 Mivel a program egyéb komponenseinek szüksége van az új állapotra, ezért új állapot eltárolása után egy szignál kerül kibocsátásra.
 
@@ -40,9 +39,7 @@ Mivel a program egyéb komponenseinek szüksége van az új állapotra, ezért �
 @subsection Kapcsolat Kapcsolat a robottal
 A robottal a kapcsolat soros porton keresztül létezik. Ennek fenntartásáért a CommSerial osztály felel, melynek QSerialPort tagváltozóján keresztül kezelhető maga a soros port.
 
-Az üzenetek küldése és fogadása is streameken keresztül történik. A küldő függvénnyel bármilyen olyan objektum elküldhető, mely magát QDataStream-be képes írni.
-
-Az üzenetek fogadásához bekötésre került a QSerialPort readyRead() signalja, melyet az osztály dataReceived() slotja dolgoz fel. Ez nem tesz mást, mint a bejövő streamet továbbítja a dataAvailable() signaljának segítségével további feldolgozásra. Fontos, hogy az előbbi signal kiadásakor még nem biztos, hogy a teljes üzenet megérkezett.
+Az üzenetek küldése és fogadása is streameken keresztül történik. A küldő függvénnyel bármilyen olyan objektum elküldhető, mely magát QDataStream-be képes írni. Az üzenetek fogadásához bekötésre került a QSerialPort readyRead() signalja, melyet az osztály dataReceived() slotja dolgoz fel. Ez nem tesz mást, mint a bejövő streamet továbbítja a dataAvailable() signaljának segítségével további feldolgozásra. Fontos, hogy az előbbi signal kiadásakor még nem biztos, hogy a teljes üzenet megérkezett, erre a későbbi feldolgozást végző osztályokban figyelni kell.
 
 @subsection Uzenetfeldolgozas Az üzenettípusok
 Az üzenetek feldolgozása a Strategy tervezési minta alaján történik. Az üzenetfeldolgozást végző osztályok UML diagramja az alábbi ábrán látató.
@@ -77,3 +74,5 @@ A bejövő és kimenő üzenetek könnyű kezeléséhez a RobotMsgHandler osztá
 @section UI A user interface
 Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az adatok összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok
 újrarajzolásáért, valamint gombok kezeléséért.
+
+@section Selftest A Self test funkció
