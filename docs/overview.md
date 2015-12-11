@@ -71,10 +71,18 @@ Az értékes adat feldolgozása mindaddig tart, amíg a parseMessage() függvén
 
 A bejövő és kimenő üzenetek könnyű kezeléséhez a RobotMsgHandler osztály használható, mely egy Proxy tervezési mintát valósít meg, kezelő interfészt szolgáltatva a robot üzeneteihez. A robot számára üzenetek küldése az osztály megfelelő slotjainak hívásával, a megfelelő üzenetek fogadása pedig a signaljaihoz való csatlakozással lehetséges.
 
-@section UI A user interface
-Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az adatok összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok újrarajzolásáért, valamint gombok kezeléséért.
+Egy a robotnak szóló terminál üzenet elküldésének szekvenciadiagramja látható a következő ábrán az ENTER lenyomásától az üzenet elküldéséig
 
-A ConsoleTabEventClass() kezeli a soros porthoz tartozó fület, mely segítségével üzeneteket küldhetünk és fogadhatunk soros porton, GraphTabEventClass() osztály szolgál a grafikonokat tartalmazó fül eseményeinek kezeléséért, minden új adat érkezése esetén újrarajzolja a grafikonjainkat
+![](umldiagrams/sendseq.jpg)
+
+A RobotMsgHandler Proxy osztály megfelelő slotjának meghívásától kezdve az össze üzenettípus küldésének szekvenciadiagramja a fentivel megegyezik.
+
+@section UI A user interface
+Az alkalmazásunk felhasználói felülete QML alapú GUI. A QML felelős az C++ adatok és a felhasználói felület összekapcsolásáért, változások esetén a megfelelő objektumok frissítéséért, grafikonok újrarajzolásáért, valamint gombok kezeléséért.
+
+A ConsoleTabEventClass() kezeli a soros porthoz tartozó fület, mely segítségével üzeneteket küldhetünk és fogadhatunk soros porton, GraphTabEventClass() osztály szolgál a grafikonokat tartalmazó fül eseményeinek kezeléséért, minden új adat érkezése esetén újrarajzolja a grafikonjainkat.
+
+![](umldiagrams/ui.jpg)
 
 MainWindowEventClass() segítségével kezeljük az egyéb általánosabb UI elemeket (pl: gombok, menü)
 
