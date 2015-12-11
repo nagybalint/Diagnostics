@@ -60,7 +60,6 @@ amely hibátlanul visszaadta a beérkezett float típusú üzenetdarabot.
 
 A hiba okára azóta sem sikerült rájönnünk (nem nagy hiba, nagyon sokat nem is kerestük az okát, hiszen könnyű alternatív megoldásokat adni), mindenesetre érdekes jelenség, és a Qt dokumentációjában sem találtuk nyomát.
 
-<div style="text-align:center" markdown="1">
 
 ![Alt Text](images/logo.png "git•egylet")
 
