@@ -23,6 +23,7 @@ Az egyik legérdekesebb részfeladatnak a felhasználói felület megfelelő kia
 kezdetben meglehetősen nehézkes volt megfelelően összeilleszteni a két oldalt, illetve a fellépő hibákat megkeresni. A Qt kifejezetten jó online dokumentációját átböngészve azonban a hibákat több-kevesebb idő alatt, de mindig sikerült megoldani.
 
 
+
 ![UI](docs/ui.JPG "Felhasználói felület")
 
 <small>Szerzők, verziók: Divald Viktor, Nagy Bálint Máté, Szabó OSzkár</small>
