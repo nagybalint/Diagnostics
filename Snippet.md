@@ -35,8 +35,10 @@ Grafikonok rajzolása során futottunk bele abba a hibába miszerint, float típ
 tűnt úgy, hogy működőképes lesz. Alapértelmezetten át kellett volna alakítania a float típusunkat QML számára is értelmezhető real típussá, végül a problémát
 float helyett Qreal típusú lista használatával sikerült megoldnai
 
+<div style="text-align:center" markdown="1">
 
-![UI](images/logo.png "git•egylet")
+![Alt Text](images/logo.png#center "git•egylet")
+
 
 <small>Szerzők: Divald Voktor, Nagy Bálint Máté, Szabó Oszkár Albert</small>
 
