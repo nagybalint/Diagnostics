@@ -28,7 +28,15 @@ kezdetben meglehetősen nehézkes volt megfelelően összeileszten a két körny
 így ezen nehézségek kis keresgélés után feloldódtak. 
 
 
-![UI](docs/ui.JPG "Felhasználói felület")
+![UI](images/ui.JPG "Felhasználói felület")
 
-<small>Szerzők: Divald Voktor, Nagy Bálint Máté, Szabó OSzkár</small>
+## QML tmogatott adattípusok
+Grafikonok rajzolása során futottunk bele abba a hibába miszerint, float típusú listát szerettünk volna QML oldalról elérni,ez sokadik próbálkozásra sem 
+tűnt úgy, hogy működőképes lesz. Alapértelmezetten át kellett volna alakítania a float típusunkat QML számára is értelmezhető real típussá, végül a problémát
+float helyett Qreal típusú lista használatával sikerült megoldnai
+
+
+![UI](images/logo.png "git•egylet")
+
+<small>Szerzők: Divald Voktor, Nagy Bálint Máté, Szabó Oszkár Albert</small>
 
