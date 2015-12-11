@@ -39,7 +39,7 @@ Mivel a program egyéb komponenseinek szüksége van az új állapotra, ezért �
 @subsection Kapcsolat Kapcsolat a robottal
 A robottal a kapcsolat soros porton keresztül létezik. Ennek fenntartásáért a CommSerial osztály felel, melynek QSerialPort tagváltozóján keresztül kezelhető maga a soros port.
 
-Az üzenetek küldése és fogadása is streameken keresztül történik. A küldő függvénnyel bármilyen olyan objektum elküldhető, mely magát QDataStream-be képes írni. Az üzenetek fogadásához bekötésre került a QSerialPort readyRead() signalja, melyet az osztály dataReceived() slotja dolgoz fel. Ez nem tesz mást, mint a bejövő streamet továbbítja a dataAvailable() signaljának segítségével további feldolgozásra. Fontos, hogy az előbbi signal kiadásakor még nem biztos, hogy a teljes üzenet megérkezett, erre a későbbi feldolgozást végző osztályokban figyelni kell.
+Az üzenetek küldése és fogadása is streameken keresztül történik. A send() függvénnyel bármilyen olyan objektum elküldhető, mely magát QDataStream-be képes írni. Az üzenetek fogadásához bekötésre került a QSerialPort readyRead() signalja, melyet az osztály dataReceived() slotja dolgoz fel. Ez nem tesz mást, mint a bejövő streamet továbbítja a dataAvailable() signaljának segítségével további feldolgozásra. Fontos, hogy az előbbi signal kiadásakor még nem biztos, hogy a teljes üzenet megérkezett, erre a későbbi feldolgozást végző osztályokban figyelni kell.
 
 @subsection Uzenetfeldolgozas Az üzenettípusok
 Az üzenetek feldolgozása a Strategy tervezési minta alaján történik. Az üzenetfeldolgozást végző osztályok UML diagramja az alábbi ábrán látató.
@@ -88,3 +88,9 @@ MainWindowEventClass() segítségével kezeljük az egyéb általánosabb UI ele
 
 
 @section Selftest A Self test funkció
+
+A roboton a RobotTest osztály segítségével öntesztelő funkció futtatható. Az osztály run() slotját meghívva a tesztelő funkció elindul. Egyszerre egy robotfunkciót tesztel, a run() slot többszöri meghívásával lehet a teszten teljesen végighaladni. A teszt során keletkezett log üzeneteket egy signal segítségével továbbítja az azt megjelenítő UI elemnek. A teszt futása az abort() slot meghívásával leállítható.
+
+Maga a teszt a motor és a kormányszervó működését ellenőrzi. Először ad egy konstans sebességet az autóra, a QTimer tagvaátozója segítségével vár egy pár másodpercet, majd pedig megállítja az autót. Ezután a kormányszervót forgatja el először 15°, majd -15° szögbe, végül a 0° alapállapotba.
+
+A teszt futása során a robot megfelelő funkcionalitásáról saját szemmel, a robotot, vagy pedig a grafikonokra kirajzolt sebesség és kormányszög jeleket megfigyelve győződhetünk meg.
