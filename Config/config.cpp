@@ -3,7 +3,7 @@
 #include <QString>
 #include <QDebug>
 
-Config::Config(QObject *parent) : QObject(parent)
+Config::Config(QObject *parent) : QObject(parent), pid()
 {
 
 }
@@ -17,6 +17,11 @@ void Config::readFrom(QDataStream &stream)
 {
     stream >> pid;
 }
+
+void Config::setPid(Pid &pid) {
+    this->pid = pid;
+}
+
 
 Config &Config::operator=(const Config &other)
 {

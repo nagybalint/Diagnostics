@@ -33,15 +33,19 @@ Application::Application(int argc, char *argv[])
     QObject::connect(rootObject, SIGNAL(stopCommand()), &mainWindow, SLOT(stopCommand()));
     QObject::connect(rootObject, SIGNAL(runTestCmd()), &selfTest, SLOT(run()));
     QObject::connect(rootObject, SIGNAL(abortTestCmd()), &selfTest, SLOT(abort()));
+    QObject::connect(rootObject, SIGNAL(setPid(qreal, qreal, qreal)), &mainWindow, SLOT(setPidParemeters(qreal,qreal,qreal)));
+    QObject::connect(rootObject, SIGNAL(setSS(QString, QString)), &mainWindow, SLOT(setSSParameters(QString,QString)));
     QObject::connect(&consoleTab, SIGNAL(commandAvailable(QString&)), &handler, SLOT(sendTerminalMsg(QString&)));
     QObject::connect(&handler, SIGNAL(terminalMessageReceived(QString&)), &consoleTab, SLOT(addToListView(QString&)));
     QObject::connect(&handler, SIGNAL(statusUpdateReceived(RobotState&)), &history, SLOT(add(RobotState&)));
     QObject::connect(&handler, SIGNAL(errorMessageReceived(RobotErrorMessage::Code)), &mainWindow, SLOT(errorMsgReceived(RobotErrorMessage::Code)));
     QObject::connect(&selfTest, SIGNAL(robotTestMessage(QString)), &mainWindow, SLOT(selfTestReceivedMessage(QString)));
-
+    QObject::connect(&mainWindow, SIGNAL(startUpdateRequest(float)), &updateRequest, SLOT(start(float)));
+    QObject::connect(&mainWindow, SIGNAL(stopUpdateRequest()), &updateRequest, SLOT(stop()));
+    QObject::connect(&mainWindow, SIGNAL(controlParametersUpdated(Config&)), &handler, SLOT(sendConfig(Config&)));
 
     serial.connect();
-    updateRequest.start(100);
+    updateRequest.start(30);
 
 }
 

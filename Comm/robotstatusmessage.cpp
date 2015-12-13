@@ -17,7 +17,7 @@ int RobotStatusMessage::parseMessage(QDataStream &inStream) {
     float byteInArray[5];
     quint8* bytePtr;
 
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 4; i++)
     {
         bytePtr = (quint8*) &(byteInArray[i]);
         for(int j = 0; j < 4; j++) {
@@ -26,11 +26,10 @@ int RobotStatusMessage::parseMessage(QDataStream &inStream) {
         }
     }
 
-    this->state.setBatVoltage3S(byteInArray[0]);
-    this->state.setBatVoltage2S(byteInArray[1]);
-    this->state.setCarSpeed(byteInArray[2]);
-    this->state.setSteeringAngle(byteInArray[3]);
-    this->state.lineSensor.frontLinePos = byteInArray[4];
+    this->state.setCarSpeed(byteInArray[0]);
+    this->state.setSteeringAngle(byteInArray[1]);
+    this->state.lineSensor.frontLinePos = byteInArray[2];
+    this->state.lineSensor.lineOrientation = byteInArray[3];
 
     return 0;
 

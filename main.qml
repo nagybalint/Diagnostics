@@ -10,7 +10,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("git•egylet Diagnostics")
     minimumWidth: 600
-    minimumHeight: 400
+    minimumHeight: 430
 
     signal sendTextInput(string msg)
     signal keyPressed(int msg)
@@ -18,6 +18,8 @@ ApplicationWindow {
     signal stopCommand()
     signal runTestCmd()
     signal abortTestCmd()
+    signal setPid(real kp, real ki, real kd)
+    signal setSS(string param, string val)
 
     property var frontSensorPos: graphFrontSensorPos
     property var orientationAngle: graphOrientationAngle
@@ -46,6 +48,7 @@ ApplicationWindow {
         Item {
             id: tmp
             Layout.minimumWidth: 200
+            Layout.preferredWidth: 200
             Layout.maximumWidth: 200
 
             GroupBox {
@@ -77,25 +80,18 @@ ApplicationWindow {
                         onClicked: stopCommand()
                     }
 
-                    Rectangle {
-                        id: statusInfoRect
+                    GroupBox {
+                        id: statusInfo
                         anchors.top: stopBtn.bottom
-                        anchors.bottom: orientationRect.top
+                        anchors.bottom: canvasGB.top
                         anchors.right: parent.right
                         anchors.left: parent.left
-                        anchors.topMargin: 10
-                        color: "transparent"
-
-                        Text {
-                            id: statusInfo
-                            anchors.top: parent.top
-                            font.pixelSize: 18
-                            text: qsTr("Status info:")
-                        }
+                        Layout.preferredWidth: parent.width
+                        title: "STATUS INFO"
 
                         Text {
                             id: battery3SText
-                            anchors.top: statusInfo.bottom
+                            anchors.top: parent.top
                             text: qsTr("\nBattery:\n   3S: " + batContrV + "V\n   2S: " + batMotorV + "V");
                             color: batterryTextColor
                         }
@@ -104,8 +100,8 @@ ApplicationWindow {
                             id: selftestText
                             anchors.top: battery3SText.bottom
                             anchors.margins: 5
-                            font.pixelSize: 15
-                            width: parent.width/2
+                            font.pixelSize: 10
+                            Layout.preferredWidth:  parent.width/2
                             text: qsTr("Selftest:")
                         }
 
@@ -113,7 +109,7 @@ ApplicationWindow {
                             id:runTestBtn
                             anchors.top: selftestText.bottom
                             anchors.left: parent.left
-                            width: parent.width/2
+                            Layout.preferredWidth:  tmp.width/2
                             text: qsTr("Run")
                             onClicked: runTestCmd()
 
@@ -122,8 +118,8 @@ ApplicationWindow {
                         Button {
                             id:abortTestBtn
                             anchors.top: selftestText.bottom
-                            anchors.left: runTestBtn.right
                             anchors.right: parent.right
+                            Layout.preferredWidth: tmp.width / 2
                             text: qsTr("Abort")
                             onClicked: abortTestCmd()
                         }
@@ -141,19 +137,21 @@ ApplicationWindow {
                         }
                     }
 
-
-                    Rectangle {
-                        id: orientationRect
+                    GroupBox {
+                        id: canvasGB
+                        title: "Line Orientation"
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
                         anchors.left: parent.left
-                        Layout.preferredHeight: parent.width
-                        color: "transparent"
 
+                        Layout.preferredHeight: parent.width
 
                         Canvas {
+                            id: canvasOrientation
                             objectName: "graphOrientation"
                             anchors.fill: parent
+
+
                             property int circleMargin: 5;
 
                             onPaint: {
@@ -171,8 +169,8 @@ ApplicationWindow {
                                 context.stroke();
                                 context.closePath();
                                 context.strokeStyle = "black";
-                                context.moveTo(width/2, height - circleMargin);
-                                context.lineTo(width/2, circleMargin);
+                                context.moveTo(width/2, height);
+                                context.lineTo(width/2, 0);
                                 context.stroke();
 
                                 context.beginPath();
@@ -196,8 +194,6 @@ ApplicationWindow {
 
         Item {
 
-            Layout.minimumWidth: 200
-
             TabView {
                 anchors.fill: parent
                 anchors.margins: 5
@@ -205,16 +201,106 @@ ApplicationWindow {
                 Tab {
                     id: graphsTab
                     title: "Graphs"
+                    anchors.fill: parent
 
                     GraphTab {
                         id: mainGraphTab
                         anchors.fill: parent
                     }
                 }
+                Tab {
+                    id: configTab
+                    title: "Config"
+                    anchors.fill: parent
+                    anchors.margins: 5
+
+
+                    ColumnLayout {
+                        Layout.preferredHeight: 200
+                        Layout.preferredWidth: 200
+
+
+                        GroupBox {
+                            id: pidBox
+                            title: "PID"
+                            Layout.preferredHeight: 100
+                            Layout.preferredWidth: 100
+                            Layout.alignment: Qt.AlignTop
+
+                            ColumnLayout{
+                                id:configColumn
+                                anchors.fill: parent
+
+
+                                InputText {
+                                    id: inKp
+                                    title: "Kp:"
+                                    Layout.alignment: Qt.AlignTop
+                                    Layout.fillWidth: true
+
+                                    onTextChanged: {
+                                        setPid(inKp.parameter, inKi.parameter, inKd.parameter);
+                                    }
+                                }
+
+
+                                InputText {
+                                    id: inKi
+                                    title: "Ki:"
+                                    anchors.top: inKp.bottom
+
+                                    onTextChanged: setPid(inKp.parameter, inKi.parameter, inKd.parameter);
+                                }
+
+                                InputText {
+                                    id: inKd
+                                    title: "Kd:"
+                                    anchors.top: inKi.bottom
+
+                                    onTextChanged: setPid(inKp.parameter, inKi.parameter, inKd.parameter);
+                                }
+
+                            }
+                        }
+
+                        GroupBox {
+                            id: ssBox
+                            title: "SS"
+                            Layout.preferredHeight: 100
+                            Layout.preferredWidth: 100
+                            anchors.top: pidBox.bottom
+
+                            ColumnLayout {
+                                id: ssColumn
+                                anchors.fill: parent
+
+                                InputText {
+                                    id: inXi
+                                    title: "Xi: "
+                                    Layout.alignment: Qt.AlignTop
+                                    Layout.fillWidth: true
+
+                                    onTextChanged: setSS(inXi.parameter, inD.parameter)
+                                }
+
+                                InputText {
+                                    id: inD
+                                    title: "D: "
+                                    anchors.top: inXi.bottom
+
+                                    onTextChanged: setSS(inXi.parameter, inD.parameter)
+                                }
+                            }
+
+
+                        }
+                    }
+                }
 
                 Tab {
                     id: consoleTab
                     title: "Console"
+                    anchors.fill: parent
 
                     ConsoleTab {
                         id: mainConsoleTab

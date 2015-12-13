@@ -4,5 +4,6 @@
         <file>ConsoleTab.qml</file>
         <file>GraphTab.qml</file>
         <file>DrawGraph.qml</file>
+        <file>InputText.qml</file>
     </qresource>
 </RCC>

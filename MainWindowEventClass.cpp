@@ -3,6 +3,7 @@
 #include "RobotState/robotstate.h"
 #include <QDebug>
 #include <Comm/roboterrormessage.h>
+#include "Config/config.h"
 
 MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHistory &hState) :
     qmlContext(context), history(hState)
@@ -12,12 +13,14 @@ MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHisto
     qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue(0));
     qmlContext.setContextProperty(QStringLiteral("graphBatContrV"), QVariant::fromValue(0));
     qmlContext.setContextProperty(QStringLiteral("graphBatMotorV"), QVariant::fromValue(0));
+    qmlContext.setContextProperty(QStringLiteral("batterryTextColor"), QVariant::fromValue(QString("")));
+    qmlContext.setContextProperty(QStringLiteral("selfTestMessage"), QVariant::fromValue((QString(""))));
 }
 
 void MainWindowEventClass::graphChanged() {
 
     qmlContext.setContextProperty(QStringLiteral("graphFrontSensorPos"), QVariant::fromValue((qreal)history.currentState->lineSensor.getFrontLinePos()));
-    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)history.graphSteeringAngle.last()));
+    qmlContext.setContextProperty(QStringLiteral("graphOrientationAngle"), QVariant::fromValue((qreal)history.currentState->lineSensor.getLineOrientation()));
     qmlContext.setContextProperty(QStringLiteral("graphBatContrV"), QVariant::fromValue((qreal)history.currentState->batVoltage3S));
     qmlContext.setContextProperty(QStringLiteral("graphBatMotorV"), QVariant::fromValue((qreal)history.currentState->batVoltage2S));
 
@@ -25,11 +28,29 @@ void MainWindowEventClass::graphChanged() {
 }
 
 void MainWindowEventClass::startCommand() {
-    qDebug() << "Start command arrived";
+    emit startUpdateRequest(30);
 }
 
 void MainWindowEventClass::stopCommand() {
-    qDebug() << "Stop comand arrived";
+    emit stopUpdateRequest();
+}
+
+void MainWindowEventClass::setPidParemeters(qreal kp, qreal ki, qreal kd) {
+    Config config;
+    Pid pid;
+
+    pid.setKd(kd);
+    pid.setKi(ki);
+    pid.setKp(kp);
+
+    config.setPid(pid);
+
+    emit controlParametersUpdated(config);
+}
+
+void MainWindowEventClass::setSSParameters(QString param, QString val) {
+    Q_UNUSED(param);
+    Q_UNUSED(val);
 }
 
 void MainWindowEventClass::errorMsgReceived(RobotErrorMessage::Code code) {

@@ -25,16 +25,19 @@ Item {
         id: base
 
         anchors.fill: parent
-        Layout.minimumWidth: 200
 
         Rectangle {
 
             id: scrollRect
+
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            Layout.fillWidth: true
             anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.left: parent.left
             anchors.bottom: inputRect.top
+
             color: "lightgray"
+            Layout.preferredHeight: 0
+            Layout.preferredWidth: 0
 
 
             ScrollView {
@@ -63,7 +66,10 @@ Item {
             height: 25
             color: "white"
             radius: 1
-            Layout.preferredWidth: base.width
+            Layout.preferredWidth: -1
+            Layout.fillHeight: false
+            Layout.preferredHeight: -1
+            Layout.fillWidth: true
             border.color: "grey"
             border.width: 1
 

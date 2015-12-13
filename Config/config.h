@@ -19,6 +19,8 @@ public:
     /** @brief tagváltozók streamből olvasása */
     void readFrom(QDataStream& stream);
 
+    void setPid(Pid &pid);
+
     /** @brief egyenlőség operátor felüldefiniálása */
     Config& operator=(const Config& other);
 

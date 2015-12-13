@@ -7,6 +7,7 @@
 #include <QQmlApplicationEngine>
 #include "robotstatehistory.h"
 #include "Comm/roboterrormessage.h"
+#include "Config/config.h"
 
 /**
  * @brief The MainWindowEventClass class - Tartalmazza a felhasználói felület eseménykezelőit
@@ -60,11 +61,21 @@ public slots:
 
     void selfTestReceivedMessage(QString message);
 
+    void setPidParemeters(qreal kp, qreal ki, qreal kd);
+
+    void setSSParameters(QString param, QString val);
+
 signals:
     /**
      * @brief graphContextUpdated - signal mely újrarajzoltatja a QML oldali grafikont
      */
     void graphContextUpdated();
+
+    void stopUpdateRequest();
+
+    void startUpdateRequest(float perid);
+
+    void controlParametersUpdated(Config &config);
 
 private:
     /**

@@ -16,8 +16,6 @@ class UpdateRequest : public QObject
 public:
     UpdateRequest(RobotMsgHandler& handler);
     ~UpdateRequest() = default;
-    void start(float interval);
-    void stop();
 
 private:
 
@@ -28,6 +26,8 @@ private:
 signals:
 
 public slots:
+    void start(float interval);
+    void stop();
 
     void tick();
 };

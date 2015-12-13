@@ -4,10 +4,10 @@
 
 CommSerial::CommSerial() : receiveStream(nullptr) {
 
-    serialPort.setBaudRate(230400);
+    serialPort.setBaudRate(115200);
     serialPort.setParity(QSerialPort::NoParity);
     serialPort.setStopBits(QSerialPort::OneStop);
-    serialPort.setPortName("COM13");
+    serialPort.setPortName("COM20");
     serialPort.setFlowControl(QSerialPort::NoFlowControl);
     serialPort.setDataBits(QSerialPort::Data8);
 
@@ -29,7 +29,7 @@ bool CommSerial::isConnected() {
 }
 
 void CommSerial::connect() {
-    if(!serialPort.open(QIODevice::ReadWrite)) {
+    if( !serialPort.open(QIODevice::ReadWrite) ) {
         qDebug() << "ERROR: Could not connect to serial port";
         // TODO emit error signal
     }
