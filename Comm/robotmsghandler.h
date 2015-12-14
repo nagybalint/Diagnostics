@@ -6,6 +6,7 @@
 #include "robotmessage.h"
 #include "roboterrormessage.h"
 #include "RobotState/robotstate.h"
+#include "Comm/robotstartmessage.h"
 /**
  * @brief RobotMsgHandler - Proxy tervezési minta alapján létrehozott osztály, a robot számára üzenetek küldését,
  * a robottól üzenetek fogadását teszi lehetővé az alkalmazás számára.
@@ -133,6 +134,8 @@ public slots:
      * @param config - Az elküldendő konfiguráció
      */
     void sendConfig(Config& config);
+
+    void sendStartMessage(RobotStartMessage& msg);
 
 };
 

@@ -19,6 +19,8 @@ RobotMessage::Type RobotMessage::getType(quint8 modeID) {
         return RobotMessage::Type::SetSpeed;
     case (quint8) RobotMessage::Type::SetServo:
         return RobotMessage::Type::SetServo;
+    case (quint8) RobotMessage::Type::Start:
+        return RobotMessage::Type::Start;
     default:
         break;
     }

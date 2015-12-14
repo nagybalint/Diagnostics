@@ -40,8 +40,8 @@ Application::Application(int argc, char *argv[])
     QObject::connect(&handler, SIGNAL(statusUpdateReceived(RobotState&)), &history, SLOT(add(RobotState&)));
     QObject::connect(&handler, SIGNAL(errorMessageReceived(RobotErrorMessage::Code)), &mainWindow, SLOT(errorMsgReceived(RobotErrorMessage::Code)));
     QObject::connect(&selfTest, SIGNAL(robotTestMessage(QString)), &mainWindow, SLOT(selfTestReceivedMessage(QString)));
-    QObject::connect(&mainWindow, SIGNAL(startUpdateRequest(float)), &updateRequest, SLOT(start(float)));
-    QObject::connect(&mainWindow, SIGNAL(stopUpdateRequest()), &updateRequest, SLOT(stop()));
+    QObject::connect(&mainWindow, SIGNAL(startRobotControl(RobotStartMessage&)), &handler, SLOT(sendStartMessage(RobotStartMessage&)));
+    QObject::connect(&mainWindow, SIGNAL(stopRobotControl(RobotStartMessage&)), &handler, SLOT(sendStartMessage(RobotStartMessage&)));
     QObject::connect(&mainWindow, SIGNAL(controlParametersUpdated(Config&)), &handler, SLOT(sendConfig(Config&)));
 
     serial.connect();

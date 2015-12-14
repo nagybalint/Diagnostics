@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <Comm/roboterrormessage.h>
 #include "Config/config.h"
+#include "Comm/robotstartmessage.h"
 
 MainWindowEventClass::MainWindowEventClass(QQmlContext &context, RobotStateHistory &hState) :
     qmlContext(context), history(hState)
@@ -28,11 +29,13 @@ void MainWindowEventClass::graphChanged() {
 }
 
 void MainWindowEventClass::startCommand() {
-    emit startUpdateRequest(30);
+    RobotStartMessage msg(RobotStartMessage::Type::Start);
+    emit startRobotControl(msg);
 }
 
 void MainWindowEventClass::stopCommand() {
-    emit stopUpdateRequest();
+    RobotStartMessage msg(RobotStartMessage::Type::Stop);
+    emit startRobotControl(msg);
 }
 
 void MainWindowEventClass::setPidParemeters(qreal kp, qreal ki, qreal kd) {

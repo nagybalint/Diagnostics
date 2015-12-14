@@ -121,3 +121,7 @@ void RobotMsgHandler::sendConfig(Config& config) {
     RobotConfigMessage msg(config);
     this->serial->send(msg);
 }
+
+void RobotMsgHandler::sendStartMessage(RobotStartMessage& msg) {
+    this->serial->send(msg);
+}

@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     updaterequest.cpp \
     Comm/robotconfigmessage.cpp \
     robottest.cpp \
-    MainWindowEventClass.cpp
+    MainWindowEventClass.cpp \
+    Comm/robotstartmessage.cpp
 
 RESOURCES += qml.qrc
 
@@ -59,6 +60,7 @@ HEADERS += \
     updaterequest.h \
     Comm/robotconfigmessage.h \
     robottest.h \
-    MainWindowEventClass.h
+    MainWindowEventClass.h \
+    Comm/robotstartmessage.h
 
 DISTFILES +=

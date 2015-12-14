@@ -42,7 +42,8 @@ public:
         /// A robot sebességének beállítása
         SetSpeed = 0x06,
         /// A robot kormányszögének beállítása
-        SetServo = 0x07
+        SetServo = 0x07,
+        Start = 0x08
     };
 
     /**

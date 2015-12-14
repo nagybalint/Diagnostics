@@ -8,6 +8,7 @@
 #include "robotstatehistory.h"
 #include "Comm/roboterrormessage.h"
 #include "Config/config.h"
+#include "Comm/robotstartmessage.h"
 
 /**
  * @brief The MainWindowEventClass class - Tartalmazza a felhasználói felület eseménykezelőit
@@ -71,9 +72,9 @@ signals:
      */
     void graphContextUpdated();
 
-    void stopUpdateRequest();
+    void stopRobotControl(RobotStartMessage& msg);
 
-    void startUpdateRequest(float perid);
+    void startRobotControl(RobotStartMessage& msg);
 
     void controlParametersUpdated(Config &config);
 
